@@ -9,8 +9,11 @@ module MyPage
 
     def for_twitter
       <<~EOS
-        #{combined}
+        #{summary}
+
         #{article_title} #{article_url}?ref=twitter ##{article_nico_code} #ニコニコ動画
+
+        #{detail}
       EOS
     end
 

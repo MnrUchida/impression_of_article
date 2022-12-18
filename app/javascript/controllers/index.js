@@ -9,3 +9,6 @@ application.register("form", FormController)
 
 import CopyController from "./copy_controller.js"
 application.register("copy", CopyController)
+
+import InputCountController from "./input_count_controller.js"
+application.register("input-count", InputCountController)

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :users
     resources :articles, except: :destroy
     resources :musics, except: :destroy
     resources :creators, except: :destroy

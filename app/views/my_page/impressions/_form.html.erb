@@ -13,7 +13,7 @@
 <%= form_with(url: update_article_my_page_impressions_path,
               html: {
                 data: { controller: "form", action: "input->form#submit" },
-                class: 'js-impression' }) do |form| %>
+                class: 'js-impression mb-2' }) do |form| %>
   <div class="row">
     <div class="col-auto">
       <%= form.label :url, 'URL', class: 'form-label' %>
@@ -36,21 +36,29 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-auto">
+  <div data-controller="input-count">
+    <div class="d-flex justify-content-between">
       <%= form.label :summary, '一言で', class: 'form-label' %>
+      <span data-input-count-target="output"></span>
     </div>
-    <div class="col-12">
-      <%= form.text_area :summary, class: 'form-control', row: 2, wrap: :soft %>
+    <div class="row">
+      <div class="col-12">
+        <%= form.text_area :summary, class: 'form-control', rows: 2, wrap: :soft, data: { action: 'input->input-count#count', "input-count-target": "content" } %>
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-auto">
-      <%= form.label :detail, '存分に', class: 'form-label' %>
+  <div data-controller="input-count">
+    <div class="row">
+      <div class="d-flex justify-content-between">
+        <%= form.label :detail, '存分に', class: 'form-label' %>
+        <span data-input-count-target="output"></span>
+      </div>
     </div>
-    <div class="col-12">
-      <%= form.text_area :detail, class: 'form-control', rows: 10 %>
+    <div class="row">
+      <div class="col-12">
+        <%= form.text_area :detail, class: 'form-control', rows: 10, wrap: :soft, data: { action: 'input->input-count#count', "input-count-target": "content" } %>
+      </div>
     </div>
   </div>
 
