@@ -1,0 +1,18 @@
+.js-impression {
+  font-size: 0.8rem;
+  input,textarea {
+    font-size: 0.8rem;
+  }
+  pre {
+    white-space: pre-wrap ;
+  }
+
+  .card-body {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+
+    pre {
+      margin-bottom: 0;
+    }
+  }
+}

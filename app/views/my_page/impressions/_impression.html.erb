@@ -1,0 +1,24 @@
+<div id="<%= dom_id impression %>" class="js-impression">
+  <div class="row m-2" >
+    <div class="col-12">
+      <%= link_to impression.article_title, impression.article_url, target: :_blank %>
+    </div>
+  </div>
+  <% if impression.pending? %>
+    <span class="badge bg-secondary">下書き</span>
+  <% else %>
+    <span class="badge bg-primary">公開中</span>
+  <% end %>
+  <div data-controller="copy" class="card m-2">
+    <div class="card-body">
+      <pre><%= impression.combined %></pre>
+    </div>
+    <div class="card-footer">
+      <%= button_tag "コピー", data: { action: 'click->copy#copy', content: impression.combined }, class: 'btn btn-sm btn-outline-secondary' %>
+      <% if impression.article_nico? %>
+        <%= button_tag "Twitter用", data: { action: 'click->copy#copy', content: impression.for_twitter }, class: 'btn btn-sm btn-outline-secondary' %>
+      <% end %>
+      <%= button_tag "Note用", data: { action: 'click->copy#copy', content: impression.for_note }, class: 'btn btn-sm btn-outline-secondary' %>
+    </div>
+  </div>
+</div>

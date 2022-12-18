@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    errors:
+      messages:
+        too_long: は%{count}文字以内で入力してください。
+        too_short: は%{count}文字以上で入力してください。
+        required: が指定されていません
+    models:
+      user: "ユーザー"
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        remember_me: ログイン状態を保持する
+

@@ -1,0 +1,8 @@
+<%= render 'header' %>
+
+<%= render @decorated_impression %>
+
+<div class="text-center">
+  <%= link_to "編集", edit_my_page_impression_path(@impression), class: 'btn btn-outline-primary' %>
+  <%= link_to "公開", publish_my_page_impression_path(@impression), class: 'btn btn-outline-primary', data: { "turbo-method": :patch } %>
+</div>

@@ -1,0 +1,60 @@
+<% if impression.errors.any? %>
+  <div style="color: red">
+    <h2>入力を確認してください</h2>
+
+    <ul>
+      <% impression.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(url: update_article_my_page_impressions_path,
+              html: {
+                data: { controller: "form", action: "input->form#submit" },
+                class: 'js-impression' }) do |form| %>
+  <div class="row">
+    <div class="col-auto">
+      <%= form.label :url, 'URL', class: 'form-label' %>
+    </div>
+    <div class="col-12">
+      <%= form.text_field :url, class: 'form-control', value: impression.article_url %>
+    </div>
+  </div>
+<% end %>
+
+<%= form_with(model: [:my_page, impression], html: { class: 'js-impression' }, data: { turbo: false }) do |form| %>
+  <div class="row">
+    <div class="col-auto">
+      <%= form.label :title, 'タイトル', class: 'form-label' %>
+    </div>
+    <div class="col-auto">
+      <span id="article-field">
+        <%= render partial: 'article', locals: { article: impression.article } %>
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-auto">
+      <%= form.label :summary, '一言で', class: 'form-label' %>
+    </div>
+    <div class="col-12">
+      <%= form.text_area :summary, class: 'form-control', row: 2, wrap: :soft %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-auto">
+      <%= form.label :detail, '存分に', class: 'form-label' %>
+    </div>
+    <div class="col-12">
+      <%= form.text_area :detail, class: 'form-control', rows: 10 %>
+    </div>
+  </div>
+
+  <div class="text-center mt-1">
+    <%= form.submit '下書き保存', class: 'btn btn-primary' %>
+  </div>
+<% end %>

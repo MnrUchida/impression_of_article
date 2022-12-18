@@ -1,0 +1,34 @@
+<div class="container">
+  <header class="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between py-3 mb-4 border-bottom">
+    <ul class="nav col-9 col-md-auto mb-2 mb-md-0">
+      <li><%= link_to "トップ", root_path, class: "nav-link px-2 link-secondary" %></li>
+      <li><%= link_to "感想", impressions_path, class: "nav-link px-2 link-secondary" %></li>
+      <% if current_user.present? %>
+        <li>
+          <div class="dropdown">
+            <%= link_to '書く', '#', class: 'nav-link px-2 link-secondary dropdown-toggle', id: 'dropdownWriteLink', data: { bs_toggle: 'dropdown' } %>
+            <ul class="dropdown-menu" aria-labelledby="dropdownWriteLink">
+              <li><%= link_to "感想を書く", new_my_page_impression_path, class: "dropdown-item" %></li>
+              <li><%= link_to "下書き一覧", my_page_impressions_path(status: :pending), class: "dropdown-item" %></li>
+              <li><%= link_to "公開中一覧", my_page_impressions_path(status: :published), class: "dropdown-item" %></li>
+            </ul>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <div class="col-md-3 text-end">
+      <% if current_user.present? %>
+        <div class="dropdown">
+          <%= link_to current_user.name, '#', class: 'btn btn-secondary dropdown-toggle', role: 'button', id: 'dropdownMenuLink', data: { bs_toggle: 'dropdown' } %>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li>
+              <%= link_to 'ログアウト', destroy_user_session_path, class: 'dropdown-item', data: { turbo_method: :delete } %>
+            </li>
+          </ul>
+        </div>
+      <% else %>
+        <%= link_to 'Login', new_user_session_path, class: 'btn btn-outline-primary me-2' %>
+      <% end %>
+    </div>
+  </header>
+</div>

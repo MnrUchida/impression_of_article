@@ -1,0 +1,3 @@
+web: thin start --ssl -p 3003
+js: yarn build --watch
+css: yarn build:css --watch
