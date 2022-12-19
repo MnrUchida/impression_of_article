@@ -24,6 +24,8 @@ class Article < ApplicationRecord
   has_many :editor_articles, -> { editor }, dependent: :destroy, inverse_of: :article, class_name: 'CreatorArticle'
   has_many :editors, through: :editor_articles, class_name: 'Creator'
 
+  scope :title_like, ->(title) { where("title ILIKE :title", title: "%#{title}%") }
+
   def self.find_or_initialize_by_url(url)
     article = _find_by_url(url)
     article || _find_or_initialize_by_url(url)

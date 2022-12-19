@@ -1,4 +1,19 @@
-<div class="container" >
-  <h3>TopPage</h3>
-  ランダム表示
+<div class="container js-impression" >
+  <div class="border" >
+    <%= paginate @impressions %>
+  </div>
+  <div id="impressions">
+    <% @impressions.each do |impression| %>
+      <div class="card mb-2" id="<%= dom_id impression %>">
+        <div class="card-header">
+          <div class="text-truncate">
+            <%= link_to impression.article_title, my_page_impression_path(impression), class: 'link-dark text-nowrap' %>
+          </div>
+        </div>
+        <div class="card-body">
+          <pre><%= impression.summary %></pre>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

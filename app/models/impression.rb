@@ -3,7 +3,7 @@
 # Table name: impressions
 #
 #  id         :bigint           not null, primary key
-#  detail     :text             not null
+#  detail     :text
 #  status     :integer
 #  summary    :string           not null
 #  created_at :datetime         not null
@@ -25,7 +25,10 @@ class Impression < ApplicationRecord
   belongs_to :user
   belongs_to :article
 
+  validates :summary, presence: true
+
   delegate :url, :title, :nico_code, :nico?, to: :article, allow_nil: true, prefix: true
 
   enum status: { pending: 0, published: 1 }
+  scope :article_title_like, ->(title) { joins(:article).merge(Article.title_like(title)) }
 end

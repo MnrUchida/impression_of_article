@@ -16,7 +16,10 @@
                 class: 'js-impression mb-2' }) do |form| %>
   <div class="row">
     <div class="col-auto">
-      <%= form.label :url, 'URL', class: 'form-label' %>
+      <div>
+        <%= form.label :url, 'URL', class: 'form-label' %>
+        <span class="badge bg-danger">必須</span>
+      </div>
     </div>
     <div class="col-12">
       <%= form.text_field :url, class: 'form-control', value: impression.article_url %>
@@ -38,12 +41,15 @@
 
   <div data-controller="input-count">
     <div class="d-flex justify-content-between">
-      <%= form.label :summary, '一言で', class: 'form-label' %>
+      <div>
+        <%= form.label :summary, '一言で', class: 'form-label' %>
+        <span class="badge bg-danger">必須</span>
+      </div>
       <span data-input-count-target="output"></span>
     </div>
     <div class="row">
       <div class="col-12">
-        <%= form.text_area :summary, class: 'form-control', rows: 2, wrap: :soft, data: { action: 'input->input-count#count', "input-count-target": "content" } %>
+        <%= form.text_area :summary, class: 'form-control', rows: 3, data: { action: 'input->input-count#count', "input-count-target": "content" }, required: true %>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <div class="container js-impression" >
   <%= render 'header' %>
-  <div class="d-flex border" >
+  <div class="border" >
     <%= paginate @impressions %>
   </div>
   <div id="impressions">
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="card-body">
-          <pre class="text-wrap"><%= impression.summary %></pre>
+          <pre><%= impression.summary %></pre>
         </div>
       </div>
     <% end %>

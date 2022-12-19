@@ -1,9 +1,9 @@
 module MyPage
   class ImpressionsController < ApplicationController
+    before_action :set_impressions, except: %i[new create]
     before_action :set_impression, only: %i[show edit update destroy publish]
 
     def index
-      @impressions = Impression.preload(:article).where(user: current_user)
       @impressions = @impressions.where(status: params[:status])
       @impressions = @impressions.page(params[:page]).per(5)
     end
@@ -53,7 +53,11 @@ module MyPage
     private
 
       def set_impression
-        @impression = Impression.find(params[:id])
+        @impression = @impressions.find(params[:id])
+      end
+
+      def set_impressions
+        @impressions = Impression.preload(:article).where(user: current_user).order(created_at: :desc, id: :asc)
       end
 
       def impression_params

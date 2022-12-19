@@ -3,6 +3,7 @@ module MyPage
     def combined
       <<~TEXT
         #{summary}
+
         #{detail}
       TEXT
     end

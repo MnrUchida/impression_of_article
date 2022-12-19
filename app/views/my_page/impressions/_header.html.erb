@@ -1,8 +1,8 @@
 <ul class="nav nav-pills mb-2 js-impression">
   <li class="nav-item">
-    <%= link_to "下書き一覧", my_page_impressions_path(status: :pending), class: "nav-link p-1 #{'active' if current_page?(controller: 'my_page/impressions', action: 'index', status: 'pending' )}" %>
+    <%= link_to "下書き一覧", my_page_impressions_path(status: :pending), class: "nav-link p-1 #{'active' if params[:status] == 'pending'}" %>
   </li>
   <li class="nav-item">
-    <%= link_to "公開中一覧", my_page_impressions_path(status: :published), class: "nav-link p-1 #{'active' if current_page?(controller: 'my_page/impressions', action: 'index', status: 'published' )}" %>
+    <%= link_to "公開中一覧", my_page_impressions_path(status: :published), class: "nav-link p-1 #{'active' if params[:status] == 'published' }" %>
   </li>
 </ul>

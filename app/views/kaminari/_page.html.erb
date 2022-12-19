@@ -9,8 +9,8 @@
 -%>
 <span class="page<%= ' current' if page.current? %>">
   <% if page.current? %>
-    <span class="btn btn-sm disabled m-2"><%= page %></span>
+    <span class="btn btn-sm m-1 p-1 disabled"><%= page %></span>
   <% else %>
-    <%= link_to page, url, {remote: remote, rel: page.rel, class: 'btn btn-sm btn-outline-primary m-2' } %>
+    <%= link_to page, url, {remote: remote, rel: page.rel, class: 'btn btn-sm m-1 p-1 btn-outline-primary' } %>
   <% end %>
 </span>

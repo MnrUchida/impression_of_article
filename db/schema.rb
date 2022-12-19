@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_18_083103) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_19_075159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_18_083103) do
     t.bigint "user_id", null: false
     t.bigint "article_id", null: false
     t.string "summary", null: false
-    t.text "detail", null: false
+    t.text "detail"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
@@ -102,4 +102,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_18_083103) do
   add_foreign_key "music_articles", "musics"
   add_foreign_key "music_creators", "creators"
   add_foreign_key "music_creators", "musics"
+
+  create_view "randomized_impressions", sql_definition: <<-SQL
+      SELECT impressions.id,
+      impressions.user_id,
+      impressions.article_id,
+      impressions.summary,
+      impressions.detail,
+      impressions.created_at,
+      impressions.updated_at,
+      impressions.status
+     FROM impressions
+    WHERE (impressions.status = 1)
+    ORDER BY (random())
+   LIMIT 100;
+  SQL
 end

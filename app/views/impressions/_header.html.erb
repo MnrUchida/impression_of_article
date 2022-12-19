@@ -1,0 +1,11 @@
+<div class='mb-2 js-impression'>
+  <%= form_with(url: impressions_path, scope: :search, method: :get, html: {
+    data: {
+      turbo_frame: "impressions",
+      controller: "form",
+      action: "input->form#submit"
+    }
+  }) do |form| %>
+    <%= form.text_field :keyword, class: 'form-control', placeholder: '作品名で検索できます' %>
+  <% end %>
+</div>

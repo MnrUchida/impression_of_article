@@ -1,0 +1,1 @@
+SELECT * FROM impressions WHERE status = 1 ORDER BY random() LIMIT 100

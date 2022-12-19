@@ -7,5 +7,9 @@
     remote:        data-remote
 -%>
 <span class="next">
-  <%= link_to_unless current_page.last?, t('views.pagination.next').html_safe, url, rel: 'next', remote: remote, class: 'btn btn-sm btn-outline-primary m-2' %>
+  <% if current_page.last? %>
+    <span class="btn btn-sm m-1 p-1 disabled"><%= t('views.pagination.next') %></span>
+  <% else %>
+    <%= link_to t('views.pagination.next'), url, {remote: remote, rel: 'prev', class: 'btn btn-sm m-1 p-1 btn-outline-primary' } %>
+  <% end %>
 </span>
