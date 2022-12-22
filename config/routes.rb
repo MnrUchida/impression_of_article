@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root "home#index"
+  root "impressions#index"
 
   devise_scope :user do
     get 'users/two_factor_auth', to: 'users/sessions#two_factor_auth'
