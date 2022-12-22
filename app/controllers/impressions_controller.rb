@@ -2,7 +2,11 @@ class ImpressionsController < ApplicationController
   before_action :set_impressions
 
   def index
-    @impressions = @impressions.article_title_like(search_params[:keyword])
+    @impressions = if search_params[:keyword].present?
+                     @impressions.article_title_like(search_params[:keyword])
+                   else
+                     @impressions = RandomizedImpression.preload(:article)
+                   end
     @impressions = @impressions.page(params[:page]).per(5)
   end
 
