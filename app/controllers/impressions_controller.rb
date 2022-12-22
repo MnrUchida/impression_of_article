@@ -7,6 +7,7 @@ class ImpressionsController < ApplicationController
   end
 
   def show
+    @impression = ImpressionDecorator.decorate(Impression.published.find(params[:id]))
   end
 
   private def set_impressions

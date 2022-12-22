@@ -1,0 +1,12 @@
+<div id="<%= dom_id impression %>" class="js-impression">
+  <div class="row m-2" >
+    <div class="col-12">
+      <%= link_to impression.article_title, impression.article_url, target: :_blank %>
+    </div>
+  </div>
+  <div data-controller="copy" class="card m-2">
+    <div class="card-body">
+      <pre><%= impression.combined %></pre>
+    </div>
+  </div>
+</div>
