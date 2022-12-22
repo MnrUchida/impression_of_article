@@ -10,7 +10,7 @@ class ImpressionsController < ApplicationController
   end
 
   private def set_impressions
-    @impressions = Impression.preload(:article).order(created_at: :desc, id: :asc)
+    @impressions = Impression.published.preload(:article).order(created_at: :desc, id: :asc)
   end
 
   private def search_params
