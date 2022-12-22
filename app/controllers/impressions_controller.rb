@@ -3,7 +3,7 @@ class ImpressionsController < ApplicationController
 
   def index
     @impressions = if search_params[:keyword].present?
-                     @impressions.article_title_like(search_params[:keyword])
+                     @impressions.article_keyword_like(search_params[:keyword])
                    else
                      @impressions = RandomizedImpression.preload(:article)
                    end

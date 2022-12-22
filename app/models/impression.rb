@@ -30,5 +30,5 @@ class Impression < ApplicationRecord
   delegate :url, :title, :nico_code, :nico?, to: :article, allow_nil: true, prefix: true
 
   enum status: { pending: 0, published: 1 }
-  scope :article_title_like, ->(title) { joins(:article).merge(Article.title_like(title)) }
+  scope :article_keyword_like, ->(keyword) { joins(:article).merge(Article.keyword_like(keyword)) }
 end
