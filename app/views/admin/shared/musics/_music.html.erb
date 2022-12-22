@@ -1,0 +1,7 @@
+<li id="<%= dom_id music %>">
+  <% if music.present? %>
+    <%= music.title %>
+    <%= hidden_field(:article, "music_ids", value: music.id, multiple: true) %>
+    <%= link_to '削除', admin_shared_music_path(music), data: { turbo_method: :delete } %>
+  <% end %>
+</li>

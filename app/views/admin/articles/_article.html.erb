@@ -1,0 +1,28 @@
+<div id="<%= dom_id article %>">
+  <div class="row m-2" >
+    <div class="col-1 fw-bold">タイトル</div>
+    <div class="col-10">
+      <%= link_to article.title, article.url, target: :_blank %>
+    </div>
+  </div>
+  <div class="row m-2" >
+    <div class="col-1 fw-bold">アクター</div>
+    <div class="col-10">
+      <ul>
+        <% article.actor_articles.each do |actor_article| %>
+          <li><%= link_to actor_article.creator_name, admin_creator_path(id: actor_article.creator_id) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="row m-2" >
+    <div class="col-1 fw-bold">音楽</div>
+    <div class="col-10">
+      <ul>
+        <% article.music_articles.each do |music_article| %>
+          <li><%= link_to music_article.music_title, admin_music_path(id: music_article.music_id) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

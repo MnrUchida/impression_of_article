@@ -1,0 +1,11 @@
+<%= render "modal", title: "Musics" do %>
+  <h1>New music</h1>
+
+  <%= render partial: 'form', locals: { music: @music } %>
+
+  <br>
+
+  <div>
+    <%= link_to "Back to musics", admin_shared_musics_path %>
+  </div>
+<% end %>

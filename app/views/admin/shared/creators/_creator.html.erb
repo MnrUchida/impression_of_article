@@ -1,0 +1,7 @@
+<li id="<%= dom_id creator %>">
+  <% if creator.present? %>
+    <%= creator.name %>
+    <%= hidden_field(:article, "#{params[:relation_name]}_ids", value: creator.id, multiple: true) %>
+    <%= link_to '削除', admin_shared_creator_path(creator), data: { turbo_method: :delete } %>
+  <% end %>
+</li>

@@ -1,6 +1,6 @@
 module Admin
   class CreatorsController < ApplicationController
-    before_action :set_creator, only: %i[show edit update destroy]
+    before_action :set_creator, only: %i[show edit update]
 
     def index
       @creators = Creator.all

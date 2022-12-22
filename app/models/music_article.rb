@@ -21,4 +21,6 @@
 class MusicArticle < ApplicationRecord
   belongs_to :music, inverse_of: :music_articles
   belongs_to :article, inverse_of: :music_articles
+
+  delegate :title, to: :music, allow_nil: true, prefix: true
 end

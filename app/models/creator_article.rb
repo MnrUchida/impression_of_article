@@ -23,5 +23,7 @@ class CreatorArticle < ApplicationRecord
   enum role: { actor: 0, cinematographer: 1, editor: 2 }
 
   belongs_to :creator, inverse_of: :creator_articles
-  belongs_to :article, inverse_of: :creator_articles
+  belongs_to :article
+
+  delegate :name, to: :creator, allow_nil: true, prefix: true
 end

@@ -6,15 +6,9 @@ module Admin
       @articles = Article.page(params[:page])
     end
 
-    def show
-    end
+    def show; end
 
-    def edit
-    end
-
-    def new
-      @article = Article.new
-    end
+    def edit; end
 
     def update
       @article.attributes = article_params
@@ -25,26 +19,13 @@ module Admin
       end
     end
 
-    def create
-      @article = Article.new(article_params)
-      @article.set_article_from_url
-      respond_to do |format|
-        if @article.save
-          redirect_to admin_article_url(@article), notice: "Article was successfully updated."
-        else
-          render :new, status: :unprocessable_entity
-        end
-      end
-    end
-
     private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params[:id])
-    end
+      def set_article
+        @article = Article.preload(actor_articles: :creator, music_articles: :music).find(params[:id])
+      end
 
-    def article_params
-      params.require(:article).permit(:note, :title, :url, :image_url)
-    end
+      def article_params
+        params.require(:article).permit(:note, :title, :url, :image_url, actor_ids: [], music_ids: [])
+      end
   end
 end

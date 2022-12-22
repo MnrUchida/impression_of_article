@@ -57,6 +57,8 @@ gem 'annotate'
 gem 'kaminari'
 gem 'draper'
 gem 'devise'
+gem 'devise-two-factor'
+gem 'rqrcode'
 gem 'scenic'
 
 group :development, :test do

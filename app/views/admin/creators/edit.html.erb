@@ -1,0 +1,12 @@
+<h1>Editing creator</h1>
+
+<%= link_to @creator.name, @creator.url, target: :_blank %>
+
+<%= render partial: 'form', locals: { creator: @creator } %>
+
+<br>
+
+<div>
+  <%= link_to "Show this creator", admin_creator_path(@creator) %> |
+  <%= link_to "Back to creators", admin_creators_path %>
+</div>

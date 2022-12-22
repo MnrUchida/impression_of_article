@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }
+  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations', passwords: 'users/passwords' }
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "home#index"
 
+  devise_scope :user do
+    get 'users/two_factor_auth', to: 'users/sessions#two_factor_auth'
+  end
+
   resources :home, only: :index
-  resources :my_page, only: :index
   resources :impressions, only: %i[index show]
 
   namespace :my_page do
@@ -21,11 +24,12 @@ Rails.application.routes.draw do
         patch :publish
       end
     end
+    resources :two_step_verifications, only: %i[new create]
   end
 
   namespace :admin do
     resources :users
-    resources :articles, except: :destroy
+    resources :articles, only: %i[index show edit update]
     resources :musics, except: :destroy
     resources :creators, except: :destroy
 

@@ -1,0 +1,7 @@
+<h2>2-Step Verification</h2>
+
+<% if current_user.otp_required_for_login %>
+  <%= render('disable') %>
+<% else %>
+  <%= render('enable') %>
+<% end %>

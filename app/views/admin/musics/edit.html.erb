@@ -1,0 +1,12 @@
+<h1>Editing music</h1>
+
+<%= link_to @music.title, @music.url, target: :_blank %>
+
+<%= render partial: 'form', locals: { music: @music } %>
+
+<br>
+
+<div>
+  <%= link_to "Show this music", admin_music_path(@music) %> |
+  <%= link_to "Back to musics", admin_musics_path %>
+</div>

@@ -1,0 +1,43 @@
+<%= render "multiple_select_modal", title: "Creators" do %>
+  <div class="container">
+    <h3>Actors</h3>
+
+    <div class='mb-3'>
+      <%= form_with(url: admin_shared_creators_path, scope: :search, method: :get, html: {
+        data: {
+          turbo_frame: "creator-list",
+          controller: "form",
+          action: "input->form#submit"
+        }
+      }) do |form| %>
+        <div class="row m-2">
+          <div class="col-4">
+            <%= form.text_field :name, class: 'form-control' %>
+            <%= form.hidden_field :relation_name, value: params[:relation_name] %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= turbo_frame_tag "creator-list" do %>
+      <div id="creators">
+        <div class="row py-3 border">
+          <div class="col-11">名前</div>
+          <div class="col-1">
+            <%= link_to '新規', new_admin_shared_creator_path(relation_name: params[:relation_name]), class: 'link-dark', data: { turbo_frame: "modal" } %>
+          </div>
+        </div>
+        <% @creators.each do |creator| %>
+          <div class="row py-3 border" id="<%= dom_id creator %>">
+            <div class="col-12">
+              <%= link_to creator.name, admin_shared_creator_path(creator, relation_name: params[:relation_name]), class: "link-dark", data: { turbo_method: :patch } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="d-flex border" >
+        <%= paginate @creators %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

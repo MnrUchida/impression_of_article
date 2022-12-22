@@ -1,0 +1,17 @@
+<div class="container" >
+  <h3>Users</h3>
+
+  <%= link_to '新規', new_admin_user_path %>
+  <div id="users">
+    <% @users.each do |user| %>
+      <div class="row py-3 border" id="<%= dom_id user %>">
+        <div class="col-6">
+          <%= link_to user.name, [:admin, user], class: 'link-dark' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="d-flex border" >
+    <%= paginate @users %>
+  </div>
+</div>

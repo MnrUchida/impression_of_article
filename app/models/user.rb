@@ -3,9 +3,12 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  consumed_timestep      :integer
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  name                   :string           not null
+#  otp_required_for_login :boolean
+#  otp_secret             :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -19,10 +22,21 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  devise :two_factor_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :validatable
+  devise :registerable, :recoverable, :validatable
 
   enum role: { admin: 0, writer: 1 }
   has_many :impressions, dependent: :destroy, inverse_of: :user
+
+  before_create :set_otp_secret
+
+  def enable_admin?
+    admin? && otp_required_for_login?
+  end
+
+  private def set_otp_secret
+    self.otp_secret = User.generate_otp_secret
+  end
 end

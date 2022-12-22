@@ -1,0 +1,5 @@
+<%= turbo_frame_tag current_user do %>
+  <%= form_with(url: my_page_two_step_verifications_path) do |form| %>
+    <%= form.submit '2段階認証無効化', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

@@ -1,6 +1,8 @@
 module Admin
   module Shared
     class MusicsController < ApplicationController
+      before_action :set_music, only: %i[update destroy]
+
       def index
         @musics = Music.all
         @musics = @musics.where("title LIKE :title", title: "%#{search_params[:title]}%")
@@ -11,14 +13,14 @@ module Admin
         @music = Music.new
       end
 
-      def show
-        @music = Music.find(params[:id])
-      end
-
       def create
         @music = Music.new(music_params)
         render :new, status: :unprocessable_entity unless @music.save
       end
+
+      def show; end
+
+      def destroy; end
 
       private def music_params
         params.require(:music).permit(:title, :url)
@@ -26,6 +28,10 @@ module Admin
 
       private def search_params
         params.fetch(:search, {}).permit(:title)
+      end
+
+      private def set_music
+        @music = Music.find(params[:id])
       end
     end
   end

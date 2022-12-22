@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :redirect_to_top, only: %i[new create]
+  layout "session"
 
-  def new
-    debugger
-  end
+  before_action :redirect_to_top, only: %i[new create]
+  before_action :configure_account_update_params, only: [:update]
 
   private def redirect_to_top
     redirect_to root_url
   end
 
   # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -56,9 +54,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)

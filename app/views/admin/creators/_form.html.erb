@@ -1,0 +1,29 @@
+<%= form_with(model: [:admin, creator]) do |form| %>
+  <% if creator.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(creator.errors.count, "error") %> prohibited this creator from being saved:</h2>
+
+      <ul>
+        <% creator.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, '名前', class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.label :url, 'URL', class: 'form-label' %>
+    <%= form.text_field :url, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= turbo_frame_tag "modal" %>

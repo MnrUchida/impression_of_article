@@ -11,6 +11,8 @@
 #  updated_at :datetime         not null
 #
 class Music < ApplicationRecord
+  has_many :music_articles, dependent: :destroy, inverse_of: :music
+  has_many :articles, dependent: :destroy, inverse_of: :music
   has_many :music_creators, dependent: :destroy, inverse_of: :music
   has_many :creators, dependent: :destroy, inverse_of: :music
 end

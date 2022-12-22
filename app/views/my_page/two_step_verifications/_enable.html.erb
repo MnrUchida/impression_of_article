@@ -1,0 +1,15 @@
+<div class='field'>
+  <%= image_tag @qr_code %>
+</div>
+
+<%= turbo_frame_tag current_user do %>
+  <p class="notice"><%= notice %></p>
+  <%= form_with(url: my_page_two_step_verifications_path) do |form| %>
+    <div class="row">
+      <div class="col-1">
+        <%= form.text_field :otp_attempt, class: 'form-control form-control-sm', value: '' %>
+      </div>
+    </div>
+    <%= form.submit '2段階認証有効化', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

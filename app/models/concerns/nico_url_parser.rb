@@ -9,10 +9,6 @@ module NicoUrlParser
     def nico_code(url)
       URI.parse(url).path.split('/').last
     end
-
-    def nico_url(url)
-      "https://www.nicovideo.jp/watch/#{nico_code(url)}"
-    end
   end
 
   def nico?

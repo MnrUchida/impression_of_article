@@ -12,3 +12,9 @@ application.register("copy", CopyController)
 
 import InputCountController from "./input_count_controller.js"
 application.register("input-count", InputCountController)
+
+import ModalController from "./modal_controller.js"
+application.register("modal", ModalController)
+
+import MultipleSelectModalController from "./multiple_select_modal_controller.js"
+application.register("multiple-select-modal", MultipleSelectModalController)
