@@ -26,20 +26,7 @@ class Article < ApplicationRecord
   after_save :set_actors!
   after_save :set_musics!
 
-  scope :keyword_like, ->(keyword) { title_like(keyword).or(creator_name_like(keyword)) }
   scope :title_like, ->(title) { where("title ILIKE :title", title: "%#{title}%") }
-  scope :creator_name_like, lambda { |name|
-    sql = <<~SQL
-      EXISTS (
-            SELECT 1 
-              FROM creators
-        INNER JOIN creator_articles
-                ON creators.id = creator_articles.creator_id
-             WHERE creators.name ILIKE :name
-      )
-    SQL
-    where(sanitize_sql_array([sql, { name: "%#{name}%" }]))
-  }
 
   def self.find_or_initialize_by_url(url)
     article = _find_by_url(url)
