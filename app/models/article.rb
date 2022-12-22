@@ -36,6 +36,7 @@ class Article < ApplicationRecord
         INNER JOIN creator_articles
                 ON creators.id = creator_articles.creator_id
              WHERE creators.name ILIKE :name
+               AND creator_articles.article_id = articles.id
       )
     SQL
     where(sanitize_sql_array([sql, { name: "%#{name}%" }]))
