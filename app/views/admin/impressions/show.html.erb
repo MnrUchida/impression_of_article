@@ -1,0 +1,7 @@
+<%= render @impression %>
+
+<div class="text-center">
+  <%= link_to "戻る", :back %>
+  <%= link_to "削除", admin_impression_path(@impression), class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: '削除します。よろしいですか？' } %>
+</div>
+
