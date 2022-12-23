@@ -27,7 +27,7 @@ class Impression < ApplicationRecord
 
   validates :summary, presence: true
 
-  delegate :url, :title, :nico_code, :nico?, to: :article, allow_nil: true, prefix: true
+  delegate :url, :title, :nico_code, :nico?, :image_url, to: :article, allow_nil: true, prefix: true
 
   enum status: { pending: 0, published: 1 }
   scope :article_keyword_like, ->(keyword) { joins(:article).merge(Article.keyword_like(keyword)) }
