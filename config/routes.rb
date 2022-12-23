@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   resources :impressions, only: %i[index show]
 
   namespace :my_page do
-    resources :articles, only: :create
     resources :impressions do
       collection do
         post :update_article
@@ -30,6 +29,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :articles, only: %i[index show edit update]
+    resources :impressions, only: %i[index show destroy]
     resources :musics, except: :destroy
     resources :creators, except: :destroy
 

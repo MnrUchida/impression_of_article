@@ -15,6 +15,7 @@ module ImpressionsOfArticle
     config.time_zone = "Tokyo"
     # デフォルトのロケールを日本にする
     config.i18n.default_locale = :ja
+    config.rack_dev_mark.enable = !Rails.env.production?
 
     # Configuration for the application, engines, and railties goes here.
     #

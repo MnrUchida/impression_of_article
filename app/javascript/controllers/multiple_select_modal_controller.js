@@ -8,7 +8,7 @@ export default class extends Controller {
   connect() {
     // モーダル生成
     this.modal = new Modal(this.element)
-    console.log(this.element.dataset.setTarget)
+
     // モーダルを表示する
     this.modal.show()
   }

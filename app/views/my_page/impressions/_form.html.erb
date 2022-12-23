@@ -27,7 +27,8 @@
   </div>
 <% end %>
 
-<%= form_with(model: [:my_page, impression], html: { class: 'js-impression' }, data: { turbo: false }) do |form| %>
+<%= form_with(model: [:my_page, impression], html: { class: 'js-impression' },
+              data: { controller: "form-set-value" }) do |form| %>
   <div class="row">
     <div class="col-auto">
       <%= form.label :title, 'タイトル', class: 'form-label' %>
@@ -69,6 +70,8 @@
   </div>
 
   <div class="text-center mt-1">
-    <%= form.submit '下書き保存', class: 'btn btn-primary' %>
+    <%= form.hidden_field :entry_type, value: nil, data: { "form-set-value-target": "output" } %>
+    <%= form.button '下書き保存', class: 'btn btn-outline-primary', data: { action: 'click->form-set-value#setValue', value: 'pending' } %>
+    <%= form.submit '公開', class: 'btn btn-primary', data: { action: 'click->form-set-value#setValue', value: 'published', turbo_confirm: '公開します。よろしいですか？' } %>
   </div>
 <% end %>

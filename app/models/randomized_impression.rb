@@ -15,7 +15,7 @@ class RandomizedImpression < ApplicationRecord
   belongs_to :user
   belongs_to :article
 
-  delegate :url, :title, :nico_code, :nico?, to: :article, allow_nil: true, prefix: true
+  delegate :url, :title, :nico_code, :nico?, :image_url, to: :article, allow_nil: true, prefix: true
 
   def readonly?
     true
