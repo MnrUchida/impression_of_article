@@ -1,7 +1,7 @@
 module MyPage
   class ImpressionsController < ApplicationController
     before_action :set_impressions, except: %i[new create]
-    before_action :set_impression, only: %i[show edit update destroy publish]
+    before_action :set_impression, only: %i[show edit update update_temporary destroy publish]
 
     def index
       @impressions = @impressions.where(status: params[:status])
@@ -21,9 +21,9 @@ module MyPage
     def update
       @impression.attributes = impression_params
       @impression.user = current_user
-      @impression.status = :pending
       if @impression.save
-        redirect_to my_page_impression_url(@impression), notice: "更新しました"
+        message = @impression.pending? ? "下書きを保存しました" : "更新しました"
+        redirect_to my_page_impressions_url(status: @impression.status), notice: message
       else
         render :edit, status: :unprocessable_entity
       end
@@ -32,9 +32,9 @@ module MyPage
     def create
       @impression = Impression.new(impression_params)
       @impression.user = current_user
-      @impression.status = :pending
       if @impression.save
-        redirect_to my_page_impression_url(@impression), notice: "登録しました"
+        message = @impression.pending? ? "下書きを保存しました" : "登録しました"
+        redirect_to my_page_impressions_url(status: @impression.status), notice: message
       else
         render :new, status: :unprocessable_entity
       end
@@ -61,7 +61,7 @@ module MyPage
       end
 
       def impression_params
-        params.require(:impression).permit(:detail, :summary, :article_id)
+        params.require(:impression).permit(:detail, :summary, :article_id, :entry_type)
       end
   end
 end

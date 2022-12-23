@@ -31,4 +31,8 @@ class Impression < ApplicationRecord
 
   enum status: { pending: 0, published: 1 }
   scope :article_keyword_like, ->(keyword) { joins(:article).merge(Article.keyword_like(keyword)) }
+
+  def entry_type=(value)
+    self.status = value.to_sym == :pending ? :pending : :published
+  end
 end
