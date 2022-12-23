@@ -4,8 +4,26 @@
   <div id="articles">
     <% @articles.each do |article| %>
       <div class="row py-3 border" id="<%= dom_id article %>">
-        <div class="col-6">
+        <div class="col-3">
           <%= link_to article.title, admin_article_path(article), class: 'link-dark' %>
+        </div>
+        <div class="col-3">
+          <ul>
+            <% article.actor_articles.each do |actor_article| %>
+              <li>
+                <%= actor_article.creator.name %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-3">
+          <ul>
+            <% article.music_articles.each do |music_article| %>
+              <li>
+                <%= music_article.music.title %>
+              </li>
+            <% end %>
+          </ul>
         </div>
       </div>
     <% end %>
