@@ -43,3 +43,5 @@
 .irb_history
 .env*
 *.dump
+.idea/
+.idea/*

@@ -50,6 +50,11 @@ module MyPage
       redirect_to my_page_impressions_url(status: :published)
     end
 
+    def destroy
+      @impression.destroy!
+      redirect_to my_page_impressions_url, notice: "削除しました"
+    end
+
     private
 
       def set_impression
