@@ -31,7 +31,7 @@
     <%= link_to "一覧", admin_shared_creators_path(relation_name: 'actor'), class: "btn btn-sm btn-outline-primary me-2", data: { turbo_frame: "modal" } %>
     <ul>
       <%= turbo_frame_tag "actor-id-field" do %>
-        <%= render partial: 'admin/shared/creators/creator', collection: article.actor_articles %>
+        <%= render partial: 'admin/shared/creators/creator', collection: article.actor_articles.map(&:creator), locals: { relation_name: 'actor' } %>
       <% end %>
     </ul>
   </div>
@@ -41,7 +41,7 @@
     <%= link_to "一覧", admin_shared_musics_path, class: "btn btn-sm btn-outline-primary me-2", data: { turbo_frame: "modal" } %>
     <ul>
       <%= turbo_frame_tag "music-id-field" do %>
-        <%= render partial: 'admin/shared/musics/music', collection: article.music_articles %>
+        <%= render partial: 'admin/shared/musics/music', collection: article.music_articles.map(&:music) %>
       <% end %>
     </ul>
   </div>
