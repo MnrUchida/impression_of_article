@@ -13,7 +13,7 @@
         <div class="row m-2">
           <div class="col-4">
             <%= form.text_field :name, class: 'form-control' %>
-            <%= form.hidden_field :relation_name, value: params[:relation_name] %>
+            <%= hidden_field_tag :relation_name, params[:relation_name] %>
           </div>
         </div>
       <% end %>
