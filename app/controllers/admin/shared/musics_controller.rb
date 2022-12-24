@@ -22,6 +22,10 @@ module Admin
 
       def destroy; end
 
+      def show_music
+        @music = Music.find_or_initialize_by_url(params[:url])
+      end
+
       private def music_params
         params.require(:music).permit(:title, :url)
       end

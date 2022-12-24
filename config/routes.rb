@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     get 'users/two_factor_auth', to: 'users/sessions#two_factor_auth'
   end
 
-  resources :home, only: :index
   resources :impressions, only: %i[index show]
 
   namespace :my_page do
@@ -34,7 +33,11 @@ Rails.application.routes.draw do
     resources :creators, except: :destroy
 
     namespace :shared do
-      resources :musics, except: %i[edit]
+      resources :musics, except: %i[edit] do
+        collection do
+          post :show_music
+        end
+      end
       resources :creators, except: %i[edit]
     end
   end

@@ -1,7 +1,22 @@
 <%= render "modal", title: "Musics" do %>
   <h1>New music</h1>
+  <%= form_with(url: show_music_admin_shared_musics_path, method: :post, html: {
+    data: {
+      controller: "form",
+      action: "input->form#submit"
+    }
+  }) do |form| %>
+    <div class="row m-2">
+      <div class="col-4">
+        <%= form.label :url, 'URL', class: 'form-label' %>
+        <%= form.text_field :url, class: 'form-control' %>
+      </div>
+    </div>
+  <% end %>
 
-  <%= render partial: 'form', locals: { music: @music } %>
+  <div id="music-field">
+    <%= render partial: 'form', locals: { music: @music } %>
+  </div>
 
   <br>
 

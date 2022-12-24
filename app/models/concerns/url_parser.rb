@@ -10,6 +10,7 @@ module UrlParser
       yield(record, parsed) if record.new_record?
       record
     rescue => e
+      self.find_or_initialize_by(url: url)
     end
   end
 end
