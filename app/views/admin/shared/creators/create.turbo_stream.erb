@@ -1,1 +1,1 @@
-<%= turbo_stream.append "#{params[:creator][:relation_name]}-id-field", partial: 'creator', locals: { creator: @creator } %>
+<%= turbo_stream.append "#{params[:creator][:relation_name]}-id-field", partial: 'creator', locals: { creator: @creator, relation_name: params[:creator][:relation_name] } %>
