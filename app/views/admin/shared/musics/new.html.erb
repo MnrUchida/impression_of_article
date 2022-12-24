@@ -6,12 +6,8 @@
       action: "input->form#submit"
     }
   }) do |form| %>
-    <div class="row m-2">
-      <div class="col-4">
-        <%= form.label :url, 'URL', class: 'form-label' %>
-        <%= form.text_field :url, class: 'form-control' %>
-      </div>
-    </div>
+    <%= form.label :url, 'URL', class: 'form-label' %>
+    <%= form.text_field :url, class: 'form-control' %>
   <% end %>
 
   <div id="music-field">
