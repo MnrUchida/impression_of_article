@@ -63,7 +63,7 @@ module MyPage
       end
 
       def set_impressions
-        @impressions = Impression.preload(:article).where(user: current_user).order(created_at: :desc, id: :asc)
+        @impressions = Impression.preload(:article, :tags).where(user: current_user).order(created_at: :desc, id: :asc)
       end
 
       def impression_params

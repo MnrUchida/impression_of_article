@@ -27,7 +27,7 @@ class Impression < ApplicationRecord
   belongs_to :user
   belongs_to :article
   has_many :impression_tags, dependent: :destroy, inverse_of: :impression
-  has_many :tags, through: :impression_tags, inverse_of: :impression
+  has_many :tags, through: :impression_tags, inverse_of: :impressions
 
   validates :summary, presence: true
 
