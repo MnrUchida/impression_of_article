@@ -14,6 +14,7 @@ module MyPage
 
     def show
       @decorated_impression = ImpressionDecorator.decorate(@impression)
+      @impression_tags = @decorated_impression.impression_tags.preload(:tag)
     end
 
     def edit; end
