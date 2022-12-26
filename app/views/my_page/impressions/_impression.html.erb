@@ -9,7 +9,6 @@
   <% else %>
     <span class="badge bg-primary">公開中</span>
   <% end %>
-  <%= render partial: 'impression_tags', locals: { impression_tags: @impression_tags } %>
   <div data-controller="copy" class="card m-2">
     <div class="card-body">
       <pre><%= impression.combined %></pre>

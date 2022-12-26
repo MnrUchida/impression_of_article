@@ -11,9 +11,6 @@ Rails.application.routes.draw do
     get 'users/two_factor_auth', to: 'users/sessions#two_factor_auth'
   end
 
-  namespace :impressions do
-    resources :tags, only: %i[index update destroy]
-  end
   resources :impressions, only: %i[index show]
 
   namespace :my_page do
@@ -23,11 +20,6 @@ Rails.application.routes.draw do
       end
       member do
         patch :publish
-      end
-    end
-    resources :impression_tags, only: %i[index new create destroy] do
-      collection do
-        post :add_tag
       end
     end
     resources :two_step_verifications, only: %i[new create]

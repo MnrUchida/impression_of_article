@@ -1,8 +1,0 @@
-<div id="<%= container_id %>" class="js-impression mt-2">
-  タグ選択
-  <div class="d-flex flex-wrap">
-    <% tags.each do |tag| %>
-        <%= link_to tag.content, add_tag_my_page_impression_tags_path(tag_id: tag.id, impression_id: impression.id), data: { turbo_method: :post }, class: 'btn btn-sm btn-primary m-1' %>
-    <% end %>
-  </div>
-</div>

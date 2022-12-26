@@ -1,8 +1,0 @@
-<%= render "modal", title: "タグ登録" do %>
-  <div class="container" >
-    <h6>タグ登録</h6>
-    <%= render partial: 'form', locals: { impression: @impression } %>
-    <%= render partial: 'impression_tags', locals: { container_id: 'impression_tags_modal', impression_tags: @impression_tags, impression: @impression } %>
-    <%= render partial: 'tags', locals: { container_id: 'all_tags_modal', tags: @tags, impression: @impression } %>
-  </div>
-<% end %>
