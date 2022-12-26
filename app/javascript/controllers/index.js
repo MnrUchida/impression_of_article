@@ -21,3 +21,6 @@ application.register("multiple-select-modal", MultipleSelectModalController)
 
 import FormSetValueController from "./form_set_value_controller.js"
 application.register("form-set-value", FormSetValueController)
+
+import FormReplicateObjectController from "./form_replicate_object_controller.js"
+application.register("form-replicate-object", FormReplicateObjectController)
