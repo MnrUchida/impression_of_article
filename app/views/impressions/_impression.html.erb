@@ -5,6 +5,11 @@
     </div>
   </div>
   <div data-controller="copy" class="card m-2">
+    <div class="card-header">
+      <% impression.tags.each do |tag| %>
+        <span class="badge bg-secondary"><%= tag.content %></span>
+      <% end %>
+    </div>
     <div class="card-body">
       <pre><%= impression.combined %></pre>
     </div>
