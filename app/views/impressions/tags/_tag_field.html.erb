@@ -1,7 +1,0 @@
-<span id="tag-field-<%= tag.id %>">
-  <% if tag.present? %>
-    <%= link_to "#{tag.content}×", impressions_tag_path(id: tag.id, tag_ids: tag_ids),
-                data: { turbo_method: :delete }, class: "btn btn-sm btn-outline-secondary m-1" %>
-    <%= hidden_field_tag :tag_ids, tag.id, multiple: true, id: "tag-field-#{tag.id}" %>
-  <% end %>
-</span>

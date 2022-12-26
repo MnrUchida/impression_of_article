@@ -2,11 +2,10 @@ class ImpressionsController < ApplicationController
   before_action :set_impressions
 
   def index
-    @tags = Tag.where(id: params[:tag_ids])
     @impressions = if search_params[:keyword].present?
-                     @impressions.by_tag_ids(params[:tag_ids]).article_keyword_like(search_params[:keyword]).page(params[:page]).per(5)
+                     @impressions.article_keyword_like(search_params[:keyword]).page(params[:page]).per(5)
                    else
-                     RandomizedImpression.preload(:article).by_tag_ids(params[:tag_ids]).page(1).per(100)
+                     @impressions = RandomizedImpression.preload(:article).page(1).per(100)
                    end
   end
 

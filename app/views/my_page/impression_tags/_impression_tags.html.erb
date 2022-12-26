@@ -1,6 +1,0 @@
-<div id="<%= container_id %>" class="d-flex flex-wrap">
-  <% impression_tags.each do |impression_tag| %>
-      <%= link_to "#{impression_tag.tag_content}×", my_page_impression_tag_path(id: impression_tag, impression_id: impression.id),
-                  data: { turbo_method: :delete }, class: "btn btn-sm btn-outline-secondary m-1" %>
-  <% end %>
-</div>

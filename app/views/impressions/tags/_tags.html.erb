@@ -1,7 +1,0 @@
-<div class="d-flex flex-wrap">
-  <% tags.each do |tag| %>
-      <%= link_to tag.content, impressions_tag_path(id: tag.id, tag_ids: tag_ids),
-                  data: { turbo_frame: 'select-tags', turbo_method: :patch, action: "click->form-replicate-object#replicate", value: tag.id },
-                  class: 'btn btn-sm btn-primary m-1' %>
-  <% end %>
-</div>
