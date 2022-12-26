@@ -5,6 +5,7 @@
 <div class="text-center">
   <%= link_to "編集", edit_my_page_impression_path(@impression), class: 'btn btn-outline-primary' %>
   <%= link_to "削除", my_page_impression_path(@impression), class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: '削除します。よろしいですか？' } %>
+  <%= link_to "タグ設定", my_page_impression_tags_path(impression_id: @impression.id), class: 'btn btn-outline-primary' %>
   <% if @impression.pending? %>
     <%= link_to "公開", publish_my_page_impression_path(@impression), class: 'btn btn-primary', data: { "turbo-method": :patch } %>
   <% end %>
