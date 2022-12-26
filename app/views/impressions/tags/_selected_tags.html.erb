@@ -1,0 +1,11 @@
+<% tag_ids = tags.map(&:id) %>
+<%= turbo_frame_tag "select-tags", class: "js-impression mt-2", data: { action: "turbo:frame-render->form#submit" } do %>
+  <div class="d-flex flex-wrap">
+    <%= link_to "タグ選択", impressions_tags_path(tag_ids: tags.map(&:id)), class: 'btn btn-sm btn-primary', data: { turbo_frame: "modal" } %>
+    <div id="tag-fields">
+      <% tags.each do |tag| %>
+        <%= render(partial: 'impressions/tags/tag_field', locals: { tag: tag, tag_ids: tag_ids }) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
