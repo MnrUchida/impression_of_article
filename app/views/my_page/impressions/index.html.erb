@@ -14,6 +14,11 @@
         <div class="card-body">
           <pre><%= impression.summary %></pre>
         </div>
+        <div class="card-footer text-sm-center">
+          <% impression.tags.each do |tag| %>
+            <span class="badge bg-secondary"><%= tag.content %></span>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>
