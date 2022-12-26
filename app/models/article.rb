@@ -22,6 +22,8 @@ class Article < ApplicationRecord
   has_many :cinematographer_articles, -> { cinematographer }, dependent: :destroy, inverse_of: :article, class_name: 'CreatorArticle'
   has_many :editor_articles, -> { editor }, dependent: :destroy, inverse_of: :article, class_name: 'CreatorArticle'
   has_many :music_articles, dependent: :destroy, inverse_of: :article
+  has_many :impressions, dependent: :destroy, inverse_of: :article
+  has_many :published_impressions, -> { published }, class_name: 'Impression'
 
   after_save :set_actors!
   after_save :set_musics!

@@ -11,7 +11,9 @@ class ImpressionsController < ApplicationController
   end
 
   def show
-    @impression = ImpressionDecorator.decorate(Impression.published.find(params[:id]))
+    @impression = Impression.published.find(params[:id])
+    @article = @impression.article
+    @other_impressions = @article.published_impressions.where.not(id: params[:id])
   end
 
   private def set_impressions
