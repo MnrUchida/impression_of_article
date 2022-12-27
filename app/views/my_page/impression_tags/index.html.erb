@@ -1,7 +1,7 @@
 <div class="container" >
   <div class="js-impression">
-    <%= link_to "戻る", my_page_impression_path(@impression) %>
-    <%= link_to "タグ追加", new_my_page_impression_tag_path(impression_id: @impression.id), data: { turbo_frame: "modal" } %>
+    <%= link_to "戻る", :back, class: "btn btn-sm btn-outline-secondary m-1" %>
+    <%= link_to "タグ追加", new_my_page_impression_tag_path(impression_id: @impression.id), data: { turbo_frame: "modal" }, class: "btn btn-sm btn-outline-primary m-1" %>
   </div>
 
   <%= render partial: 'impression', locals: { impression: @impression } %>
