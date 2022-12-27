@@ -1,7 +1,7 @@
 module Impressions
   class TagsController < ApplicationController
     def index
-      @tags = Tag.content_like(params[:keyword]).order_by_count
+      @tags = Tag.content_like(params[:keyword]).order_by_count(nil)
     end
 
     def update
