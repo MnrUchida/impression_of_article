@@ -55,7 +55,7 @@ class Article < ApplicationRecord
   end
 
   def set_actors!
-    @actor_ids ||= []
+    @actor_ids ||= actor_articles.ids
     transaction do
       exist_ids = actor_articles.ids
       actor_articles.reject { |actor_article| @actor_ids.include? actor_article.creator_id }.each(&:destroy!)
@@ -64,7 +64,7 @@ class Article < ApplicationRecord
   end
 
   def set_musics!
-    @music_ids ||= []
+    @music_ids ||= music_articles.ids
     transaction do
       exist_ids = music_articles.ids
       music_articles.reject { |music_article| @music_ids.include? music_article.music_id }.each(&:destroy!)
