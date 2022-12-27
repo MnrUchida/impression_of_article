@@ -1,4 +1,10 @@
 <div id="impression_tags" class="d-flex flex-wrap">
+  <%= link_to my_page_impression_tags_path(impression_id: @impression.id) do %>
+    <span class="btn btn-sm btn-outline-primary m-1">
+      タグ設定
+    </span>
+  <% end %>
+
   <% impression_tags.each do |impression_tag| %>
     <span class="btn btn-sm btn-outline-secondary m-1">
       <%= impression_tag.tag_content %>
