@@ -6,6 +6,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :redirect_to_top, only: %i[new create]
   before_action :configure_account_update_params, only: [:update]
 
+  def switch_show_name
+    current_user.update!(show_name: !current_user.show_name)
+    render partial: 'shared/user_menu'
+  end
+
   private def redirect_to_top
     redirect_to root_url
   end

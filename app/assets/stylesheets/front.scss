@@ -1,6 +1,6 @@
 .js-impression {
   font-size: 0.7rem;
-  input,textarea {
+  input,textarea,label,select {
     font-size: 0.8rem;
   }
   pre {
@@ -23,6 +23,10 @@
 
   .btn-sm {
     font-size: 0.7rem;
+  }
+
+  .fs-small {
+    font-size: 0.4rem;
   }
 }
 

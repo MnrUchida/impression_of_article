@@ -32,9 +32,14 @@ class Impression < ApplicationRecord
   validates :summary, presence: true
 
   delegate :url, :title, :nico_code, :nico?, :image_url, to: :article, allow_nil: true, prefix: true
+  delegate :name, :show_name?, to: :user, prefix: true
 
   enum status: { pending: 0, published: 1 }
   scope :article_keyword_like, ->(keyword) { joins(:article).merge(Article.keyword_like(keyword)) }
+  scope :keyword_like, ->(keyword) { detail_like(keyword).or(summary_like(keyword)) }
+  scope :detail_like, ->(keyword) { where("detail ILIKE :keyword", keyword: "%#{keyword}%") }
+  scope :summary_like, ->(keyword) { where("summary ILIKE :keyword", keyword: "%#{keyword}%") }
+
   scope :by_tag_ids, lambda { |tag_ids|
     return all if tag_ids.blank?
 

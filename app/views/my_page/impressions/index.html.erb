@@ -15,6 +15,11 @@
           <pre><%= impression.summary %></pre>
         </div>
         <div class="card-footer">
+          <%= link_to my_page_impression_tags_path(impression_id: impression.id) do %>
+            <span class="btn btn-sm btn-outline-primary m-1">
+              タグ設定
+            </span>
+          <% end %>
           <% impression.tags.each do |tag| %>
             <span class="badge bg-secondary"><%= tag.content %></span>
           <% end %>

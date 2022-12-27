@@ -42,7 +42,7 @@ module MyPage
 
     private def set_impression_tags
       @impression_tags = @impression.impression_tags.preload(:tag)
-      @tags = Tag.where.not(id: @impression_tags.select(:tag_id)).order_by_count
+      @tags = Tag.where.not(id: @impression_tags.select(:tag_id)).order_by_count(current_user.id)
     end
   end
 end

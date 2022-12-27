@@ -18,6 +18,7 @@ class RandomizedImpression < ApplicationRecord
   has_many :tags, through: :impression_tags, inverse_of: :impressions
 
   delegate :url, :title, :nico_code, :nico?, :image_url, to: :article, allow_nil: true, prefix: true
+  delegate :name, :show_name?, to: :user, prefix: true
 
   scope :by_tag_ids, lambda { |tag_ids|
     return all if tag_ids.blank?

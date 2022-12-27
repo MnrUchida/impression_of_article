@@ -1,17 +1,22 @@
-<div id="<%= dom_id impression %>" class="js-impression">
-  <div class="row m-2" >
-    <div class="col-12">
-      <%= link_to impression.article_title, impression.article_url, target: :_blank %>
-    </div>
-  </div>
+<% collapse_id = "collapse#{impression.id}" %>
+<div id="<%= dom_id impression %>">
   <div data-controller="copy" class="card m-2">
-    <div class="card-header">
-      <% impression.tags.each do |tag| %>
-        <span class="badge bg-secondary"><%= tag.content %></span>
-      <% end %>
+    <div class="card-header d-flex justify-content-between">
+      <div>
+        <% impression.tags.each do |tag| %>
+          <span class="badge bg-secondary"><%= tag.content %></span>
+        <% end %>
+      </div>
+      <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#<%= collapse_id %>" role="button">
+        詳細
+      </a>
     </div>
     <div class="card-body">
-      <pre><%= impression.combined %></pre>
+      <pre><%= impression.summary %></pre>
+      <br>
+      <div class="collapse <%= "show" if show_detail %>" id="<%= collapse_id %>">
+        <pre><%= impression.detail %></pre>
+      </div>
     </div>
   </div>
 </div>
