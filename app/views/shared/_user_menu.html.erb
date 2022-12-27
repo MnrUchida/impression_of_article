@@ -1,0 +1,18 @@
+<%= turbo_frame_tag "user-dropdown-menu", class: 'dropdown' do %>
+  <%= link_to current_user.name, '#', class: 'btn btn-secondary dropdown-toggle', role: 'button', id: 'dropdownMenuLink', data: { bs_toggle: 'dropdown' } %>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li>
+      <%= link_to 'ユーザー情報編集', edit_user_registration_path, class: 'dropdown-item' %>
+    </li>
+    <li>
+      <% if current_user.show_name? %>
+        <%= link_to '感想に名前を表示しないようにする', users_switch_show_name_path, class: 'dropdown-item', data: { turbo_method: :patch } %>
+      <% else %>
+        <%= link_to '感想に名前を表示するようにする', users_switch_show_name_path, class: 'dropdown-item', data: { turbo_frame: 'user-dropdown-menu', turbo_method: :patch } %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'ログアウト', destroy_user_session_path, class: 'dropdown-item', data: { turbo_method: :delete } %>
+    </li>
+  </ul>
+<% end %>

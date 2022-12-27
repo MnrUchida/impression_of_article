@@ -13,6 +13,7 @@
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  role                   :integer          default("admin"), not null
+#  show_name              :boolean
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -32,8 +33,15 @@ class User < ApplicationRecord
 
   before_create :set_otp_secret
 
+  scope :only_show_name, -> { where(show_name: true) }
+  scope :name_like, ->(name) { where("name ILIKE :name", name: "%#{name}%") }
+
   def enable_admin?
     admin? && otp_required_for_login?
+  end
+
+  def show_name?
+    !!show_name
   end
 
   private def set_otp_secret
