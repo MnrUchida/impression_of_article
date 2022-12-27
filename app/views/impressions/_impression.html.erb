@@ -7,9 +7,11 @@
           <span class="badge bg-secondary"><%= tag.content %></span>
         <% end %>
       </div>
-      <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#<%= collapse_id %>" role="button">
-        詳細
-      </a>
+      <% if impression.detail.present? %>
+        <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#<%= collapse_id %>" role="button">
+          詳細
+        </a>
+      <% end %>
     </div>
     <div class="card-body">
       <pre><%= impression.summary %></pre>
