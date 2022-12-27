@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root "impressions#index"
 
   devise_scope :user do
+    patch 'users/switch_show_name', to: 'users/registrations#switch_show_name'
     get 'users/two_factor_auth', to: 'users/sessions#two_factor_auth'
   end
 

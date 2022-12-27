@@ -3,11 +3,17 @@ class ImpressionsController < ApplicationController
 
   def index
     @tags = Tag.where(id: params[:tag_ids])
-    @impressions = if search_params[:keyword].present?
-                     @impressions.by_tag_ids(params[:tag_ids]).article_keyword_like(search_params[:keyword]).page(params[:page]).per(5)
-                   else
-                     RandomizedImpression.preload(:article).by_tag_ids(params[:tag_ids]).page(1).per(100)
-                   end
+    if search_params[:keyword].present?
+      page = params[:page]
+      per_page = 5
+      @impressions = @impressions.by_tag_ids(params[:tag_ids]).article_keyword_like(search_params[:keyword])
+    else
+      page = 1
+      per_page = 100
+      @impressions = RandomizedImpression.by_tag_ids(params[:tag_ids])
+    end
+    @impressions = @impressions.where(user_id: search_params[:writer]) if search_params[:writer].present?
+    @impressions = @impressions.preload(:article, :user).page(page).per(per_page)
   end
 
   def show
@@ -17,10 +23,10 @@ class ImpressionsController < ApplicationController
   end
 
   private def set_impressions
-    @impressions = Impression.published.preload(:article).order(created_at: :desc, id: :asc)
+    @impressions = Impression.published.order(created_at: :desc, id: :asc)
   end
 
   private def search_params
-    params.fetch(:search, {}).permit(:keyword)
+    params.fetch(:search, {}).permit(:keyword, :writer)
   end
 end
