@@ -19,6 +19,11 @@
       <div class="collapse <%= "show" if show_detail %>" id="<%= collapse_id %>">
         <pre><%= impression.detail %></pre>
       </div>
+      <% if impression.user_show_name? %>
+        <div class="fs-small text-end">
+          <%= impression.user_name %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
