@@ -15,9 +15,12 @@ class Music < ApplicationRecord
   include UrlParser
 
   has_many :music_articles, dependent: :destroy, inverse_of: :music
-  has_many :articles, dependent: :destroy, inverse_of: :music
+  has_many :articles, inverse_of: :musics
   has_many :music_creators, dependent: :destroy, inverse_of: :music
-  has_many :creators, dependent: :destroy, inverse_of: :music
+  has_many :creators, inverse_of: :musics
+
+  validates :title, presence: true
+  validates :url, presence: true
 
   def self.find_or_initialize_by_url(url)
     music = _find_by_url(url)

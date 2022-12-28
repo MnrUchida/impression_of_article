@@ -18,6 +18,8 @@ class Creator < ApplicationRecord
   has_many :music_creators, dependent: :destroy, inverse_of: :creator
   has_many :musics, through: :music_creators
 
+  validates :name, presence: true
+
   scope :name_like, ->(keyword) { where("name ILIKE :keyword", keyword: "%#{keyword}%") }
   scope :has_published_impressions, lambda {
     sql = <<~SQL
