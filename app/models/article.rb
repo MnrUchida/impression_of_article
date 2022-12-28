@@ -43,6 +43,17 @@ class Article < ApplicationRecord
     SQL
     where(sanitize_sql_array([sql, { name: "%#{name}%" }]))
   }
+  scope :has_published_impressions, lambda {
+    sql = <<~SQL
+      EXISTS (
+            SELECT 1 
+              FROM impressions
+             WHERE impressions.article_id = articles.id
+               AND impressions.status = :status
+      )
+    SQL
+    where(sanitize_sql_array([sql, { status: Impression.statuses[:published] }]))
+  }
 
   def self.find_or_initialize_by_url(url)
     article = _find_by_url(url)
