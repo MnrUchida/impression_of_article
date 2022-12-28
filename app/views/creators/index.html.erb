@@ -28,7 +28,7 @@
             <%= link_to creator.name, creator_path(creator), class: 'link-dark', data: { turbo_frame: "_top" } %>
           </div>
           <div class="col-6">
-            <%= creator.creator_articles.size %>
+            <%= creator.articles.select { |article| article.published_impressions.present? }.size %>
           </div>
         </div>
       <% end %>
