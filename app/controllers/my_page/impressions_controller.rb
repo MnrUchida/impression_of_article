@@ -43,7 +43,7 @@ module MyPage
 
     def update_article
       @article = Article.find_or_initialize_by_url(params[:url])
-      @article.save if @article.present?
+      @article.save if @article.present? && @article.valid?
     end
 
     def publish

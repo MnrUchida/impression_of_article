@@ -25,6 +25,9 @@ class Article < ApplicationRecord
   has_many :impressions, dependent: :destroy, inverse_of: :article
   has_many :published_impressions, -> { published }, class_name: 'Impression'
 
+  validates :title, presence: true
+  validates :url, presence: true
+
   after_save :set_actors!
   after_save :set_musics!
 

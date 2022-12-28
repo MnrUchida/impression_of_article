@@ -1,5 +1,5 @@
 <span id="article-field">
-  <% if article.present? %>
+  <% if article.present? && article.valid? %>
     <pre><%= article.title.strip %></pre>
     <%= hidden_field(:impression, :article_id, value: article.id) %>
   <% end %>
