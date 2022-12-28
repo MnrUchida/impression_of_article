@@ -75,7 +75,7 @@
       <%= form.button '下書き保存', class: 'btn btn-outline-primary', data: { action: 'click->form-set-value#setValue', value: 'pending' } %>
       <%= form.submit '公開', class: 'btn btn-primary me-3', data: { action: 'click->form-set-value#setValue', value: 'published', turbo_confirm: '公開します。よろしいですか？' } %>
 
-      <%= link_to 'クリア', '#', class: 'btn btn-danger ms-3', data: { action: 'click->form-storage#clear' } %>
+      <%= link_to 'クリア', '#', class: 'btn btn-danger ms-3', data: { action: 'click->form-storage#clear_with_confirm' } %>
     </div>
   <% end %>
 </div>
