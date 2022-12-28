@@ -18,6 +18,20 @@ class Creator < ApplicationRecord
   has_many :music_creators, dependent: :destroy, inverse_of: :creator
   has_many :musics, through: :music_creators
 
+  scope :name_like, ->(keyword) { where("name ILIKE :keyword", keyword: "%#{keyword}%") }
+  scope :has_published_impressions, lambda {
+    sql = <<~SQL
+      EXISTS (
+            SELECT 1 
+              FROM creator_articles
+        INNER JOIN impressions
+                ON creator_articles.article_id = impressions.article_id
+               AND impressions.status = :status 
+             WHERE creators.id = creator_articles.creator_id
+      )
+    SQL
+    where(sanitize_sql_array([sql, { status: Impression.statuses[:published] }]))
+  }
   def self.find_or_initialize_by_url(url)
     record = _find_by_url(url)
     return record if record.present?

@@ -1,7 +1,8 @@
 <div class="container sticky-top bg-white">
   <header class="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between py-2 mb-2 border-bottom">
-    <ul class="nav col-9 col-md-auto mb-2 mb-md-0">
+    <ul class="nav mb-2 mb-md-0">
       <li><%= link_to "トップ", root_path, class: "nav-link px-2 link-secondary" %></li>
+      <li><%= link_to "踊り手別", creators_path, class: "nav-link px-2 link-secondary" %></li>
       <% if current_user.present? %>
         <li>
           <div class="dropdown">
@@ -29,7 +30,7 @@
         <% end %>
       <% end %>
     </ul>
-    <div class="col-md-3 text-end">
+    <div class="text-end">
       <% if current_user.present? %>
         <%= render partial: "shared/user_menu" %>
       <% else %>

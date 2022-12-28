@@ -1,0 +1,12 @@
+<div class="js-impression">
+  <%= link_to "戻る", creator_path(@creator) %>
+  <div class="row m-2" >
+    <div class="col-12">
+      <%= link_to @article.title, @article.url, target: :_blank %>
+    </div>
+  </div>
+
+  <% @impressions.each do |impression| %>
+    <%= render partial: 'impressions/impression', locals: { impression: impression, show_detail: false }  %>
+  <% end %>
+</div>
