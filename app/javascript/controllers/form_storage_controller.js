@@ -17,23 +17,25 @@ export default class extends Controller {
     })
   }
 
+  clear_with_confirm() {
+    if(confirm('入力情報を初期化します。よろしいですか？')) { this.clear() }
+  }
+
   clear() {
-    if(confirm('入力情報を初期化します。よろしいですか？')) {
-      localStorage.removeItem(this.keyTarget.dataset['recordId'])
-      this.outputTargets.forEach((element) => {
-        const value = element.dataset['defaultValue']
-        if (value !== null && value !== undefined) {
-          element.value = element.dataset['defaultValue']
-        } else {
-          element.value = ""
-        }
-        const ev = new Event("input", {
-          bubbles: false,
-          cancelable: true
-        })
-        element.dispatchEvent(ev)
+    localStorage.removeItem(this.keyTarget.dataset['recordId'])
+    this.outputTargets.forEach((element) => {
+      const value = element.dataset['defaultValue']
+      if (value !== null && value !== undefined) {
+        element.value = element.dataset['defaultValue']
+      } else {
+        element.value = ""
+      }
+      const ev = new Event("input", {
+        bubbles: false,
+        cancelable: true
       })
-    }
+      element.dispatchEvent(ev)
+    })
   }
 
   //  入力された情報をStorageに設定
