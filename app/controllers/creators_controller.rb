@@ -1,8 +1,8 @@
 class CreatorsController < ApplicationController
   def index
-    @creators = Creator.has_published_impressions
+    @creators = Creator.has_published_impressions.order(:id)
     @creators = @creators.name_like(search_params[:keyword]) if search_params[:keyword].present?
-    @creators = @creators.preload(:creator_articles).page(params[:page]).per(7)
+    @creators = @creators.preload(:articles).page(params[:page]).per(7)
   end
 
   def show
