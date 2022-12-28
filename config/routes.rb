@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     resources :tags, only: %i[index update destroy]
   end
   resources :impressions, only: %i[index show]
+  resources :creators, only: %i[index show] do
+    resources :articles, only: %i[show], module: :creators
+  end
 
   namespace :my_page do
     resources :impressions do

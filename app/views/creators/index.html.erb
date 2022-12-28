@@ -1,0 +1,37 @@
+<div class="container" >
+  <div class='mb-3'>
+    <%= form_with(url: creators_path, scope: :search, method: :get, html: {
+      data: {
+        turbo_frame: "creator-list",
+        controller: "form",
+        action: "input->form#submit"
+      }
+    }) do |form| %>
+      <div class="d-flex w-100 mb-1">
+        <%= form.text_field :keyword, class: 'form-control w-100', placeholder: '名前の一部で検索できます' %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "creator-list" do %>
+    <div class="d-flex border" >
+      <%= paginate @creators %>
+    </div>
+    <div id="creators">
+      <div class="row py-3 border">
+        <div class="col-6">名前</div>
+        <div class="col-6">登録作品数</div>
+      </div>
+      <% @creators.each do |creator| %>
+        <div class="row py-3 border" id="<%= dom_id creator %>">
+          <div class="col-6">
+            <%= link_to creator.name, creator_path(creator), class: 'link-dark', data: { turbo_frame: "_top" } %>
+          </div>
+          <div class="col-6">
+            <%= creator.creator_articles.size %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

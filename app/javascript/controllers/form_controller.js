@@ -2,6 +2,12 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="form"
 export default class extends Controller {
+  static targets = [ "initialSubmit" ]
+
+  connect() {
+    if (this.hasInitialSubmitTarget) { this.submit() }
+  }
+
   submit() {
     // セットされているTimeoutをクリアする
     clearTimeout(this.timeout)

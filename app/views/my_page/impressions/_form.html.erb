@@ -1,77 +1,81 @@
-<% if impression.errors.any? %>
-  <div style="color: red">
-    <h2>入力を確認してください</h2>
+<div data-controller="form-storage" data-form-storage-target="key" data-record-id="impression-<%= impression.new_record? ? 'new' : impression.id %>">
+  <% if impression.errors.any? %>
+    <div style="color: red">
+      <h2>入力を確認してください</h2>
 
-    <ul>
-      <% impression.errors.each do |error| %>
-        <li><%= error.full_message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+      <ul>
+        <% impression.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= form_with(url: update_article_my_page_impressions_path,
-              html: {
-                data: { controller: "form", action: "input->form#submit" },
-                class: 'js-impression mb-2' }) do |form| %>
-  <div class="row">
-    <div class="col-auto">
-      <div>
-        <%= form.label :url, 'URL', class: 'form-label' %>
-        <span class="badge bg-danger">必須</span>
-      </div>
-    </div>
-    <div class="col-12">
-      <%= form.text_field :url, class: 'form-control', value: impression.article_url %>
-    </div>
-  </div>
-<% end %>
-
-<%= form_with(model: [:my_page, impression], html: { class: 'js-impression' },
-              data: { controller: "form-set-value" }) do |form| %>
-  <div class="row">
-    <div class="col-auto">
-      <%= form.label :title, 'タイトル', class: 'form-label' %>
-    </div>
-    <div class="col-auto">
-      <span id="article-field">
-        <%= render partial: 'article', locals: { article: impression.article } %>
-      </span>
-    </div>
-  </div>
-
-  <div data-controller="input-count">
-    <div class="d-flex justify-content-between">
-      <div>
-        <%= form.label :summary, '一言で', class: 'form-label' %>
-        <span class="badge bg-danger">必須</span>
-      </div>
-      <span data-input-count-target="output"></span>
-    </div>
+  <%= form_with(url: update_article_my_page_impressions_path,
+                html: {
+                  data: { controller: "form", action: "input->form#submit", form_target: "initialSubmit" },
+                  class: 'js-impression mb-2' }) do |form| %>
     <div class="row">
+      <div class="col-auto">
+        <div>
+          <%= form.label :url, 'URL', class: 'form-label' %>
+          <span class="badge bg-danger">必須</span>
+        </div>
+      </div>
       <div class="col-12">
-        <%= form.text_area :summary, class: 'form-control', rows: 3, data: { action: 'input->input-count#count', "input-count-target": "content" }, required: true %>
+        <%= form.text_field :url, class: 'form-control', value: impression.article_url, data: { action: 'input->form-storage#setStorage', form_storage_target: 'output', output_key: 'url', default_value: impression.article_url } %>
       </div>
     </div>
-  </div>
+  <% end %>
 
-  <div data-controller="input-count">
+  <%= form_with(model: [:my_page, impression], html: { class: 'js-impression' },
+                data: { controller: "form-set-value", action: "submit->form-storage#clear" }) do |form| %>
     <div class="row">
+      <div class="col-auto">
+        <%= form.label :title, 'タイトル', class: 'form-label' %>
+      </div>
+      <div class="col-auto">
+        <span id="article-field">
+          <%= render partial: 'article', locals: { article: impression.article } %>
+        </span>
+      </div>
+    </div>
+
+    <div data-controller="input-count" data-action="input->input-count#count">
       <div class="d-flex justify-content-between">
-        <%= form.label :detail, '存分に', class: 'form-label' %>
+        <div>
+          <%= form.label :summary, '一言で', class: 'form-label' %>
+          <span class="badge bg-danger">必須</span>
+        </div>
         <span data-input-count-target="output"></span>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <%= form.text_area :detail, class: 'form-control', rows: 10, wrap: :soft, data: { action: 'input->input-count#count', "input-count-target": "content" } %>
+      <div class="row">
+        <div class="col-12">
+          <%= form.text_area :summary, class: 'form-control', rows: 3, data: { action: "input->form-storage#setStorage", input_count_target: "content", form_storage_target: 'output', output_key: 'summary', default_value: impression.summary }, required: true %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="text-center mt-1">
-    <%= form.hidden_field :entry_type, value: nil, data: { "form-set-value-target": "output" } %>
-    <%= form.button '下書き保存', class: 'btn btn-outline-primary', data: { action: 'click->form-set-value#setValue', value: 'pending' } %>
-    <%= form.submit '公開', class: 'btn btn-primary', data: { action: 'click->form-set-value#setValue', value: 'published', turbo_confirm: '公開します。よろしいですか？' } %>
-  </div>
-<% end %>
+    <div data-controller="input-count" data-action="input->input-count#count">
+      <div class="row">
+        <div class="d-flex justify-content-between">
+          <%= form.label :detail, '存分に', class: 'form-label' %>
+          <span data-input-count-target="output"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <%= form.text_area :detail, class: 'form-control', rows: 10, wrap: :soft, data: { action: "input->form-storage#setStorage", "input-count-target": "content", form_storage_target: 'output', output_key: 'detail', default_value: impression.detail } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-1">
+      <%= form.hidden_field :entry_type, value: nil, data: { "form-set-value-target": "output" } %>
+      <%= form.button '下書き保存', class: 'btn btn-outline-primary', data: { action: 'click->form-set-value#setValue', value: 'pending' } %>
+      <%= form.submit '公開', class: 'btn btn-primary me-3', data: { action: 'click->form-set-value#setValue', value: 'published', turbo_confirm: '公開します。よろしいですか？' } %>
+
+      <%= link_to 'クリア', '#', class: 'btn btn-danger ms-3', data: { action: 'click->form-storage#clear' } %>
+    </div>
+  <% end %>
+</div>

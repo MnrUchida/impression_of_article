@@ -24,3 +24,6 @@ application.register("form-set-value", FormSetValueController)
 
 import FormReplicateObjectController from "./form_replicate_object_controller.js"
 application.register("form-replicate-object", FormReplicateObjectController)
+
+import FormStorageController from "./form_storage_controller.js"
+application.register("form-storage", FormStorageController)
