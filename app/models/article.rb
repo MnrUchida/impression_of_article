@@ -69,18 +69,18 @@ class Article < ApplicationRecord
   end
 
   def set_actors!
-    @actor_ids ||= actor_articles.ids
+    @actor_ids ||= actor_articles.pluck(:creator_id)
     transaction do
-      exist_ids = actor_articles.ids
+      exist_ids = actor_articles.pluck(:creator_id)
       actor_articles.reject { |actor_article| @actor_ids.include? actor_article.creator_id }.each(&:destroy!)
       @actor_ids.reject { |actor_id| exist_ids.include? actor_id }.each { |actor_id| actor_articles.create!(creator_id: actor_id) }
     end
   end
 
   def set_musics!
-    @music_ids ||= music_articles.ids
+    @music_ids ||= music_articles.pluck(:music_id)
     transaction do
-      exist_ids = music_articles.ids
+      exist_ids = music_articles.pluck(:music_id)
       music_articles.reject { |music_article| @music_ids.include? music_article.music_id }.each(&:destroy!)
       @music_ids.reject { |music_id| exist_ids.include? music_id }.each { |music_id| music_articles.create!(music_id: music_id) }
     end
