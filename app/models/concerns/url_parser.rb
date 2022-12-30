@@ -1,6 +1,8 @@
 module UrlParser
   extend ActiveSupport::Concern
 
+  require "open-uri"
+
   module ClassMethods
     def _find_or_initialize_by_url(url)
       html = URI.open(url).read

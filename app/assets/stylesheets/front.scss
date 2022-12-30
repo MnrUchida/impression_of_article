@@ -28,6 +28,16 @@
   .fs-small {
     font-size: 0.4rem;
   }
+
+  .js-creator-list {
+    justify-content: space-between !important;
+    .card {
+      width: 30%;
+    }
+    img {
+      width: 100%;
+    }
+  }
 }
 
 @media screen and (min-width: 960px) {
@@ -35,6 +45,16 @@
     font-size: 1rem;
     img {
       width: 192px;
+    }
+
+    .js-creator-list {
+      justify-content: start !important;
+      .card {
+        width: 15%;
+      }
+      img {
+        width: 100%;
+      }
     }
   }
 }
