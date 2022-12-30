@@ -71,4 +71,37 @@ class Impression < ApplicationRecord
 
     impression_tags.create!(tag: tag)
   end
+
+  def self.randomized_with_creator
+    sql = <<~SQL
+      WITH creator_impressions AS (
+        SELECT 
+          creator_id,
+          impressions.ids,
+          ARRAY_LENGTH(impressions.ids, 1),
+          impressions.ids[(random() * 10000)::int % ARRAY_LENGTH(impressions.ids, 1) + 1] AS impression_id
+        FROM (
+          SELECT 
+            ARRAY_AGG(impressions.id) AS ids,
+            creator_articles.creator_id
+          FROM
+            impressions
+          INNER JOIN creator_articles 
+                  ON impressions.article_id = creator_articles.article_id
+          WHERE impressions.status = 1
+          GROUP BY creator_articles.creator_id
+        ) AS impressions
+      )
+
+      SELECT 
+        impressions.*,
+        creator_impressions.creator_id
+      FROM
+        impressions
+      INNER JOIN creator_impressions
+              ON impressions.id = creator_impressions.impression_id
+    SQL
+    find_by_sql(sql)
+  end
+
 end

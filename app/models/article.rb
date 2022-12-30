@@ -24,6 +24,7 @@ class Article < ApplicationRecord
   has_many :music_articles, dependent: :destroy, inverse_of: :article
   has_many :impressions, dependent: :destroy, inverse_of: :article
   has_many :published_impressions, -> { published }, class_name: 'Impression'
+  has_many :published_tags, through: :published_impressions, source: :tags, class_name: 'Tag'
 
   validates :title, presence: true
   validates :url, presence: true

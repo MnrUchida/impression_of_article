@@ -1,4 +1,4 @@
-<div class="container" >
+<div class="container js-impression" >
   <div class='mb-3'>
     <%= form_with(url: creators_path, scope: :search, method: :get, html: {
       data: {
@@ -8,27 +8,23 @@
       }
     }) do |form| %>
       <div class="d-flex w-100 mb-1">
-        <%= form.text_field :keyword, class: 'form-control w-100', placeholder: '名前の一部で検索できます' %>
+        <%= form.text_field :keyword, class: 'form-control w-100', placeholder: '名前の一部で検索できます', value: @search_params[:keyword] %>
       </div>
     <% end %>
   </div>
 
-  <%= turbo_frame_tag "creator-list" do %>
-    <div class="d-flex border" >
-      <%= paginate @creators %>
-    </div>
-    <div id="creators">
-      <div class="row py-3 border">
-        <div class="col-6">名前</div>
-        <div class="col-6">登録作品数</div>
-      </div>
+  <%= turbo_frame_tag "creator-list", class: "js-creator-list" do %>
+    <div class="d-flex flex-wrap">
       <% @creators.each do |creator| %>
-        <div class="row py-3 border" id="<%= dom_id creator %>">
-          <div class="col-6">
-            <%= link_to creator.name, creator_path(creator), class: 'link-dark', data: { turbo_frame: "_top" } %>
-          </div>
-          <div class="col-6">
-            <%= creator.articles.select { |article| article.published_impressions.present? }.size %>
+        <% impression = @impressions[creator.id] %>
+        <div class="m-1 card">
+          <div class="card-body">
+            <%= link_to creator_path(id: creator.id, search: { keyword: @search_params[:keyword] }) do %>
+              <div class="card-text text-wrap">
+                <%= creator.name %>
+              </div>
+              <%= image_tag(impression.article_image_url) %>
+            <% end %>
           </div>
         </div>
       <% end %>

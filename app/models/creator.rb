@@ -34,6 +34,7 @@ class Creator < ApplicationRecord
     SQL
     where(sanitize_sql_array([sql, { status: Impression.statuses[:published] }]))
   }
+
   def self.find_or_initialize_by_url(url)
     record = _find_by_url(url)
     return record if record.present?
