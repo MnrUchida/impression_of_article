@@ -15,7 +15,7 @@ class ImpressionsController < ApplicationController
       @impressions = RandomizedImpression.by_tag_ids(params[:tag_ids])
     end
     @impressions = @impressions.joins(:user).merge(User.only_show_name).where(user_id: search_params[:writer]) if search_params[:writer].present?
-    @impressions = @impressions.preload(:article, :user).page(page).per(per_page)
+    @impressions = @impressions.preload(:article, :user, :tags).page(page).per(per_page)
   end
 
   def show

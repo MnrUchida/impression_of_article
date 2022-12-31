@@ -4,13 +4,14 @@ require 'open-uri'
 #
 # Table name: articles
 #
-#  id         :bigint           not null, primary key
-#  image_url  :string
-#  note       :text
-#  title      :string           not null
-#  url        :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                 :bigint           not null, primary key
+#  image_url          :string
+#  note               :text
+#  title              :string           not null
+#  uploaded_image_url :string
+#  url                :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 class Article < ApplicationRecord
   include NicoUrlParser
@@ -31,6 +32,8 @@ class Article < ApplicationRecord
 
   after_save :set_actors!
   after_save :set_musics!
+
+  before_save :upload_s3
 
   scope :keyword_like, ->(keyword) { title_like(keyword).or(creator_name_like(keyword)) }
   scope :title_like, ->(title) { where("title ILIKE :title", title: "%#{title}%") }
@@ -85,6 +88,22 @@ class Article < ApplicationRecord
       music_articles.reject { |music_article| @music_ids.include? music_article.music_id }.each(&:destroy!)
       @music_ids.reject { |music_id| exist_ids.include? music_id }.each { |music_id| music_articles.create!(music_id: music_id) }
     end
+  end
+
+  def upload_s3
+    return if self.uploaded_image_url == self.image_url
+
+    Tempfile.open(mode: File::RDWR, binmode: true) do |tempfile|
+      tempfile.write(URI.open(self.image_url).read)
+      tempfile.flush
+      IMAGE_S3.object("article_image/#{self.id}").upload_file(tempfile.path)
+    end
+
+    self.uploaded_image_url = self.image_url
+  end
+
+  def s3_url
+    IMAGE_S3.object("article_image/#{self.id}").presigned_url(:get, expires_in: 3600)
   end
 
   class << self

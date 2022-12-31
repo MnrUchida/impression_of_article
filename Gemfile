@@ -61,6 +61,7 @@ gem 'devise-two-factor'
 gem 'rqrcode'
 gem 'scenic'
 gem "rack-dev-mark"
+gem 'aws-sdk'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
