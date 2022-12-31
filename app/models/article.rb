@@ -33,7 +33,7 @@ class Article < ApplicationRecord
   after_save :set_actors!
   after_save :set_musics!
 
-  after_save :upload_s3
+  after_save :upload_s3, if: :saved_change_to_image_url?
 
   scope :keyword_like, ->(keyword) { title_like(keyword).or(creator_name_like(keyword)) }
   scope :title_like, ->(title) { where("title ILIKE :title", title: "%#{title}%") }
