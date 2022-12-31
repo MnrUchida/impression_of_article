@@ -3,7 +3,7 @@ module Admin
     before_action :set_article, only: %i[show edit update destroy]
 
     def index
-      @articles = Article.preload(actor_articles: :creator, music_articles: :music).page(params[:page])
+      @articles = Article.order(id: :desc).preload(actor_articles: :creator, music_articles: :music).page(params[:page])
     end
 
     def show; end
