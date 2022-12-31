@@ -14,6 +14,9 @@
   </div>
 
   <%= turbo_frame_tag "creator-list", class: "js-creator-list" do %>
+    <div class="border" >
+      <%= paginate @creators %>
+    </div>
     <div class="d-flex flex-wrap">
       <% @creators.each do |creator| %>
         <% impression = @impressions[creator.id] %>
@@ -23,11 +26,14 @@
               <div class="card-text text-wrap">
                 <%= creator.name %>
               </div>
-              <%= image_tag(impression.article_image_url) %>
+              <%= show_article_image(impression.article) %>
             <% end %>
           </div>
         </div>
       <% end %>
+    </div>
+    <div class="border" >
+      <%= paginate @creators %>
     </div>
   <% end %>
 </div>
