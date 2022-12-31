@@ -103,7 +103,7 @@ class Article < ApplicationRecord
   end
 
   def s3_url
-    IMAGE_S3.object("article_image/#{self.id}").presigned_url(:get, expires_in: 3600)
+    IMAGE_S3.object("article_image/#{self.id}").presigned_url(:get, expires_in: 604800)
   end
 
   class << self
