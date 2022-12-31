@@ -24,7 +24,9 @@
       <div class="card" id="<%= dom_id article %>">
         <div class="card-body">
           <div class="row">
-            <%= image_tag(article.image_url, class: "col-5") %>
+            <div class="col-5">
+              <%= show_article_image(article) %>
+            </div>
             <div class="col-7">
               <div class="text-truncate">
                 <%= link_to article.title, creator_article_path(@creator, article), class: 'link-dark' %>

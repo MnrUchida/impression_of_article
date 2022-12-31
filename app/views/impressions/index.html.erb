@@ -7,7 +7,7 @@
     <% @impressions.each do |impression| %>
       <div class="card mb-2" id="<%= dom_id impression %>">
         <div class="d-flex">
-          <%= image_tag(impression.article_image_url) %>
+          <%= show_article_image(impression.article) %>
           <div class="card w-100">
             <div class="card-header">
               <div class="text-truncate">

@@ -1,0 +1,3 @@
+<% cache "article_image_#{article.id}" do %>
+  <%= image_tag(article.s3_url) %>
+<% end %>
