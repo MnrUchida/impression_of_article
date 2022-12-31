@@ -33,7 +33,7 @@ class Article < ApplicationRecord
   after_save :set_actors!
   after_save :set_musics!
 
-  before_save :upload_s3
+  after_save :upload_s3
 
   scope :keyword_like, ->(keyword) { title_like(keyword).or(creator_name_like(keyword)) }
   scope :title_like, ->(title) { where("title ILIKE :title", title: "%#{title}%") }
@@ -91,15 +91,11 @@ class Article < ApplicationRecord
   end
 
   def upload_s3
-    return if self.uploaded_image_url == self.image_url
-
     Tempfile.open(mode: File::RDWR, binmode: true) do |tempfile|
       tempfile.write(URI.open(self.image_url).read)
       tempfile.flush
       IMAGE_S3.object("article_image/#{self.id}").upload_file(tempfile.path)
     end
-
-    self.uploaded_image_url = self.image_url
   end
 
   def s3_url
