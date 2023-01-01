@@ -22,6 +22,14 @@ class Music < ApplicationRecord
   validates :title, presence: true
   validates :url, presence: true
 
+  def self.by_url(url)
+    if nico?(url)
+      self.where(url: nico_url(url))
+    else
+      _by_url(url)
+    end
+  end
+
   def self.find_or_initialize_by_url(url)
     music = _find_by_url(url)
     return music if music.present?

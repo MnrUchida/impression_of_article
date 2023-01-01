@@ -1,7 +1,7 @@
 module MyPage
   class ImpressionTagsController < ApplicationController
     before_action :set_impression
-    before_action :set_impression_tags, only: %i[index new destroy add_tag]
+    before_action :set_impression_tags, only: %i[index new destroy add_tag show_all_tags]
     before_action :set_impression_tag, only: %i[destroy]
 
     def index; end
@@ -30,6 +30,10 @@ module MyPage
       set_impression_tags
 
       render :create
+    end
+
+    def show_all_tags
+      @tags = @tags.content_like(params[:keyword]) if params[:keyword].present?
     end
 
     private def set_impression

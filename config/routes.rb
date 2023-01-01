@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     end
     resources :impression_tags, only: %i[index new create destroy] do
       collection do
+        post :show_all_tags
         post :add_tag
       end
     end
