@@ -3,7 +3,8 @@ module Admin
     before_action :set_creator, only: %i[show edit update]
 
     def index
-      @creators = Creator.all
+      @creators = Creator.order(:id)
+      @creators = @creators.name_like(search_params[:keyword]) if search_params[:keyword].present?
       @creators = @creators.page(params[:page])
     end
 
@@ -41,6 +42,10 @@ module Admin
 
       def creator_params
         params.require(:creator).permit(:note, :name, :url)
+      end
+
+      def search_params
+        params.fetch(:search, {}).permit(:keyword)
       end
   end
 end
