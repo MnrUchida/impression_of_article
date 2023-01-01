@@ -5,6 +5,7 @@ module Admin
 
       def index
         @musics = Music.all
+        @musics = @musics.by_url(search_params[:url]) if search_params[:url].present?
         @musics = @musics.where("title LIKE :title", title: "%#{search_params[:title]}%")
         @musics = @musics.page(params[:page])
       end
@@ -31,7 +32,7 @@ module Admin
       end
 
       private def search_params
-        params.fetch(:search, {}).permit(:title)
+        params.fetch(:search, {}).permit(:title, :url)
       end
 
       private def set_music

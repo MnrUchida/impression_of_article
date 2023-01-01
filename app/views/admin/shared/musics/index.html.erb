@@ -11,7 +11,14 @@
         }
       }) do |form| %>
         <div class="row m-2">
-          <div class="col-4">
+          <div class="col-12">
+            <%= form.label :url, 'URL', class: 'form-label' %>
+            <%= form.text_field :url, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="row m-2">
+          <div class="col-12">
+            <%= form.label :title, 'タイトル', class: 'form-label' %>
             <%= form.text_field :title, class: 'form-control' %>
           </div>
         </div>
