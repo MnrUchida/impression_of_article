@@ -3,7 +3,7 @@ class ImpressionsController < ApplicationController
 
   def index
     @tags = Tag.where(id: params[:tag_ids])
-    if search_params[:keyword].present? || search_params[:full_text].present?
+    if search_params[:keyword].present? || search_params[:full_text].present? || params[:tag_ids].present?
       page = params[:page]
       per_page = 5
       @impressions = @impressions.by_tag_ids(params[:tag_ids])
@@ -12,7 +12,7 @@ class ImpressionsController < ApplicationController
     else
       page = 1
       per_page = 100
-      @impressions = RandomizedImpression.by_tag_ids(params[:tag_ids])
+      @impressions = RandomizedImpression.all
     end
     @impressions = @impressions.joins(:user).merge(User.only_show_name).where(user_id: search_params[:writer]) if search_params[:writer].present?
     @impressions = @impressions.preload(:article, :user, :tags).page(page).per(per_page)
