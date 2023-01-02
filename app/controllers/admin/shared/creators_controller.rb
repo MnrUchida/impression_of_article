@@ -4,7 +4,7 @@ module Admin
       before_action :set_creator, only: %i[update destroy]
 
       def index
-        @creators = Creator.all
+        @creators = Creator.order_by_name
         @creators = @creators.where("name LIKE :name", name: "%#{search_params[:name]}%")
         @creators = @creators.page(params[:page])
       end
