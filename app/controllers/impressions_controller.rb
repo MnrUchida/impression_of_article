@@ -5,7 +5,7 @@ class ImpressionsController < ApplicationController
     @tags = Tag.where(id: params[:tag_ids])
     if search_params[:keyword].present? || search_params[:full_text].present? || params[:tag_ids].present?
       page = params[:page]
-      per_page = 5
+      per_page = 10
       @impressions = @impressions.by_tag_ids(params[:tag_ids])
       @impressions = @impressions.article_keyword_like(search_params[:keyword]) if search_params[:keyword].present?
       @impressions = @impressions.keyword_like(search_params[:full_text]) if search_params[:full_text].present?
