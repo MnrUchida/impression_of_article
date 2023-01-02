@@ -20,6 +20,7 @@ class Creator < ApplicationRecord
 
   validates :name, presence: true
 
+  scope :order_by_name, -> { order(:name) }
   scope :name_like, ->(keyword) { where("name ILIKE :keyword", keyword: "%#{keyword}%") }
   scope :has_published_impressions, lambda {
     sql = <<~SQL

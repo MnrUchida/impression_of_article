@@ -2,7 +2,7 @@ class CreatorsController < ApplicationController
   before_action :set_search_params
 
   def index
-    @creators = Creator.has_published_impressions.order(Arel.sql("random()"))
+    @creators = Creator.has_published_impressions.order_by_name
     @creators = @creators.name_like(search_params[:keyword]) if search_params[:keyword].present?
     @creators = @creators.page(params[:page]).per(100)
     @impressions = impressions_by_creator
