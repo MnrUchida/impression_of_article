@@ -12,13 +12,14 @@ Rails.application.routes.draw do
     get 'users/two_factor_auth', to: 'users/sessions#two_factor_auth'
   end
 
+  resources :creators, only: %i[index show] do
+    resources :articles, only: %i[show], module: :creators
+  end
   namespace :impressions do
     resources :tags, only: %i[index update destroy]
   end
   resources :impressions, only: %i[index show]
-  resources :creators, only: %i[index show] do
-    resources :articles, only: %i[show], module: :creators
-  end
+  resources :articles, only: %i[show]
 
   namespace :my_page do
     resources :impressions do
