@@ -35,7 +35,7 @@ class Article < ApplicationRecord
   after_save :set_actors!
   after_save :set_musics!
 
-  before_save :set_image, if: :saved_change_to_image_url?
+  before_save :set_image, if: :will_save_change_to_image_url?
   # after_save :upload_s3, if: :saved_change_to_image_url?
 
   scope :keyword_like, ->(keyword) { title_like(keyword).or(creator_name_like(keyword)) }
