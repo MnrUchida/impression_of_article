@@ -5,6 +5,8 @@ require 'open-uri'
 # Table name: articles
 #
 #  id                 :bigint           not null, primary key
+#  content_type       :string
+#  image_data         :binary
 #  image_url          :string
 #  note               :text
 #  title              :string           not null
@@ -33,7 +35,8 @@ class Article < ApplicationRecord
   after_save :set_actors!
   after_save :set_musics!
 
-  after_save :upload_s3, if: :saved_change_to_image_url?
+  before_save :set_image, if: :saved_change_to_image_url?
+  # after_save :upload_s3, if: :saved_change_to_image_url?
 
   scope :keyword_like, ->(keyword) { title_like(keyword).or(creator_name_like(keyword)) }
   scope :title_like, ->(title) { where("title ILIKE :title", title: "%#{title}%") }
@@ -87,6 +90,13 @@ class Article < ApplicationRecord
       exist_ids = music_articles.pluck(:music_id)
       music_articles.reject { |music_article| @music_ids.include? music_article.music_id }.each(&:destroy!)
       @music_ids.reject { |music_id| exist_ids.include? music_id }.each { |music_id| music_articles.create!(music_id: music_id) }
+    end
+  end
+
+  def set_image
+    URI.open(self.image_url) do |f|
+      self.image_data = f.read
+      self.content_type = f.content_type
     end
   end
 
