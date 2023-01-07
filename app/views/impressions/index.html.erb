@@ -34,5 +34,8 @@
     <div class="border" >
       <%= paginate @impressions %>
     </div>
+    <div data-controller="copy">
+      <%= button_tag "URLコピー", data: { action: 'click->copy#copy', content: request.url }, class: 'btn btn-sm btn-outline-secondary' %>
+    </div>
   <% end %>
 </div>

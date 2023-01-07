@@ -7,17 +7,17 @@
     }
   }) do |form| %>
     <div class="d-flex w-100 mb-1">
-      <%= form.text_field :keyword, class: 'form-control w-100', placeholder: '作品名、人名で検索できます' %>
+      <%= form.text_field :keyword, class: 'form-control w-100', placeholder: '作品名、人名で検索できます', value: @search_params[:keyword] %>
       <%= link_to "詳細検索", '#dropdownSearchLink', class: 'btn btn-sm btn-outline-secondary dropdown-toggle', role: 'button', data: { bs_toggle: 'collapse' } %>
     </div>
     <div id="dropdownSearchLink" class="collapse" aria-labelledby="dropdownSearchLink">
       <div class="input-group mb-3">
         <%= form.label :writer, "書き手", class: 'input-group-text' %>
-        <%= form.collection_select :writer, User.only_show_name, :id, :name, { include_blank: true, data: { action: "change->form#submit" } }, { class: 'form-select form-select-sm' } %>
+        <%= form.collection_select :writer, User.only_show_name, :id, :name, { include_blank: true, data: { action: "change->form#submit" }, selected: @search_params[:writer] }, { class: 'form-select form-select-sm' } %>
       </div>
       <div class="input-group mb-3">
         <%= form.label :full_text, "感想検索", class: 'input-group-text' %>
-        <%= form.text_field :full_text, class: 'form-control', placeholder: '感想の内容で検索できます' %>
+        <%= form.text_field :full_text, class: 'form-control', placeholder: '感想の内容で検索できます', value: @search_params[:full_text] %>
       </div>
     </div>
     <%= render partial: "impressions/tags/selected_tags", locals: { tags: @tags } %>
