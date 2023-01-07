@@ -18,7 +18,7 @@
     <div class="d-flex w-100 mb-1">
       <%= form.text_field :keyword, class: 'form-control w-100', placeholder: 'タグ名で検索できます' %>
     </div>
-    <%= render partial: 'tags', locals: { container_id: 'all_tags', tags: @tags, impression: @impression } %>
+    <%= render partial: 'tags', locals: { container_id: 'all_tags', tags: @tags, impression: @impression, tag_id_by_group: @tag_id_by_group, tag_groups: @tag_groups } %>
   <% end %>
 </div>
 <%= turbo_frame_tag "modal" %>

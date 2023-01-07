@@ -30,6 +30,8 @@ class User < ApplicationRecord
 
   enum role: { admin: 0, writer: 1 }
   has_many :impressions, dependent: :destroy, inverse_of: :user
+  has_many :tag_groups, dependent: :destroy, inverse_of: :user
+  has_many :tag_group_tags, dependent: :destroy, inverse_of: :user
 
   before_create :set_otp_secret
 

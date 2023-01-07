@@ -34,6 +34,7 @@ module MyPage
 
     def show_all_tags
       @tags = @tags.content_like(params[:keyword]) if params[:keyword].present?
+      set_tag_group
     end
 
     private def set_impression
@@ -47,6 +48,12 @@ module MyPage
     private def set_impression_tags
       @impression_tags = @impression.impression_tags.preload(:tag)
       @tags = Tag.where.not(id: @impression_tags.select(:tag_id)).order_by_count(current_user.id)
+      set_tag_group
+    end
+
+    private def set_tag_group
+      @tag_id_by_group = TagGroupTag.where(user: current_user, tag_id: @tags.select(:id)).group(:tag_group_id).pluck(:tag_group_id, Arel.sql("ARRAY_AGG(tag_id)")).to_h
+      @tag_groups = TagGroup.joins(:tag_group_tags).merge(TagGroupTag.where(tag_id: @tags.select(:id))).where(user: current_user).index_by(&:id)
     end
   end
 end

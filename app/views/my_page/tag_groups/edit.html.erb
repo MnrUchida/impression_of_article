@@ -1,0 +1,5 @@
+<div class="container js-impression" >
+  <%= link_to "一覧に戻る", my_page_tag_groups_path, class: 'btn btn-outline-secondary btn-sm mb-3' %>
+
+  <%= render partial: 'form', locals: { tag_group: @tag_group } %>
+</div>
