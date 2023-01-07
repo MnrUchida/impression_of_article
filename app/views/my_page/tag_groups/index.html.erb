@@ -1,0 +1,23 @@
+<div class="container js-impression" >
+  <%= link_to '新規', new_my_page_tag_group_path, class: 'btn btn-outline-primary btn-sm mb-3' %>
+  <div id="tag_groups">
+    <div class="row py-3 border">
+      <div class="col-6 fw-bolder">名前</div>
+      <div class="col-6 fw-bolder">表示順</div>
+    </div>
+
+    <% @tag_groups.each do |tag_group| %>
+      <div class="row py-3 border" id="<%= dom_id tag_group %>">
+        <div class="col-6">
+          <%= link_to tag_group.name, my_page_tag_group_path(tag_group), class: 'link-dark' %>
+        </div>
+        <div class="col-6">
+          <%= tag_group.sort_order %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="d-flex border" >
+    <%= paginate @tag_groups %>
+  </div>
+</div>

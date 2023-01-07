@@ -10,6 +10,8 @@
 class Tag < ApplicationRecord
   has_many :impression_tags, dependent: :destroy, inverse_of: :tag
   has_many :impressions, through: :impression_tags, inverse_of: :tags
+  has_many :tag_group_tags, dependent: :destroy, inverse_of: :tag
+  has_many :tag_groups, through: :tag_group_tags, inverse_of: :tags
 
   scope :order_by_count, lambda { |user_id|
     sql = <<~SQL
@@ -19,4 +21,6 @@ class Tag < ApplicationRecord
     left_joins(impression_tags: :impression).group(Tag.column_names).order(Arel.sql(sanitize_sql_array([sql, { user_id: user_id }])))
   }
   scope :content_like, ->(keyword) { where("content ILIKE :keyword", keyword: "%#{keyword}%") }
+  scope :unused_tags, ->(user_id) { where.not(id: TagGroupTag.where(user_id: user_id).select(:tag_id)) }
+  scope :used_tags, ->(user_id) { where(id: TagGroupTag.where(user_id: user_id).select(:tag_id)) }
 end

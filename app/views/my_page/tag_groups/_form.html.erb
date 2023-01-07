@@ -1,0 +1,27 @@
+<%= form_with(model: [:my_page, tag_group], html: { data: { controller: "form" } }) do |form| %>
+  <% if tag_group.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(tag_group.errors.count, "error") %> prohibited this tag_group from being saved:</h2>
+
+      <ul>
+        <% tag_group.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="input-group mb-3">
+    <%= form.label :name, '名前', class: 'input-group-text' %>
+    <%= form.text_field :name, class: 'form-control', required: true %>
+  </div>
+
+  <div class="input-group mb-3">
+    <%= form.label :sort_order, '表示順', class: 'input-group-text' %>
+    <%= form.number_field :sort_order, class: 'form-control', required: true %>
+  </div>
+
+  <div class="text-center mt-1">
+    <%= form.submit '登録する', class: 'btn btn-primary btn-sm me-3' %>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+<div class="js-impression mt-2">
+  未使用タグ
+  <div class="d-flex flex-wrap">
+    <% unused_tags.each do |tag| %>
+        <%= link_to tag.content, add_tag_my_page_tag_group_path(tag_group.id, tag_id: tag.id), data: { turbo_method: :post }, class: 'btn btn-sm btn-primary m-1' %>
+    <% end %>
+  </div>
+
+  他グループ設定済み
+  <div class="d-flex flex-wrap">
+    <% other_tags.each do |tag| %>
+      <%= link_to tag.content, add_tag_my_page_tag_group_path(tag_group.id, tag_id: tag.id), data: { turbo_method: :post }, class: 'btn btn-sm btn-primary m-1' %>
+    <% end %>
+  </div>
+</div>

@@ -11,6 +11,7 @@
               <li><%= link_to "感想を書く", new_my_page_impression_path, class: "dropdown-item" %></li>
               <li><%= link_to "下書き一覧", my_page_impressions_path(status: :pending), class: "dropdown-item" %></li>
               <li><%= link_to "公開中一覧", my_page_impressions_path(status: :published), class: "dropdown-item" %></li>
+              <li><%= link_to "タグ分類", my_page_tag_groups_path, class: "dropdown-item" %></li>
             </ul>
           </div>
         </li>
