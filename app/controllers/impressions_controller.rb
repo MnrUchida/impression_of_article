@@ -4,13 +4,14 @@ class ImpressionsController < ApplicationController
   def index
     @search_params = search_params
     @tags = Tag.where(id: params[:tag_ids])
-    if @search_params[:keyword].present? || @search_params[:full_text].present? || params[:tag_ids].present? || @search_params[:writer].present?
+    if @search_params[:keyword].present? || @search_params[:full_text].present? || params[:tag_ids].present? || @search_params[:writer].present? || @search_params[:sort] == '1'
       page = params[:page]
       per_page = 10
       @impressions = @impressions.by_tag_ids(params[:tag_ids])
       @impressions = @impressions.article_keyword_like(@search_params[:keyword]) if @search_params[:keyword].present?
       @impressions = @impressions.keyword_like(@search_params[:full_text]) if @search_params[:full_text].present?
       @impressions = @impressions.joins(:user).merge(User.only_show_name).where(user_id: @search_params[:writer]) if @search_params[:writer].present?
+      @impressions = @impressions.order(updated_at: :desc, id: :desc)
     else
       page = 1
       per_page = 100
@@ -30,6 +31,6 @@ class ImpressionsController < ApplicationController
   end
 
   private def search_params
-    params.fetch(:search, {}).permit(:keyword, :writer, :full_text)
+    params.fetch(:search, {}).permit(:keyword, :writer, :full_text, :sort)
   end
 end
