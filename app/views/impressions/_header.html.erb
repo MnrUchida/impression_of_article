@@ -6,9 +6,13 @@
       action: "input->form#submit"
     }
   }) do |form| %>
-    <div class="d-flex w-100 mb-1">
-      <%= form.text_field :keyword, class: 'form-control w-100', placeholder: '作品名、人名で検索できます', value: @search_params[:keyword] %>
+    <div class="input-group mb-3">
+      <%= form.text_field :keyword, class: 'form-control', placeholder: '作品名、人名で検索できます', value: @search_params[:keyword] %>
       <%= link_to "詳細検索", '#dropdownSearchLink', class: 'btn btn-sm btn-outline-secondary dropdown-toggle', role: 'button', data: { bs_toggle: 'collapse' } %>
+    </div>
+    <div class="form-check d-flex justify-content-end">
+      <%= form.check_box :sort, class: 'form-check-input' %>
+      <%= form.label :sort, "新着順", class: 'form-check-label' %>
     </div>
     <div id="dropdownSearchLink" class="collapse" aria-labelledby="dropdownSearchLink">
       <div class="input-group mb-3">
