@@ -37,6 +37,13 @@ Rails.application.routes.draw do
       end
     end
     resources :two_step_verifications, only: %i[new create]
+    resources :tag_groups do
+      member do
+        get :edit_tags
+        post :add_tag
+        delete :destroy_tag
+      end
+    end
   end
 
   namespace :admin do

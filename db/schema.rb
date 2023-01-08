@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_03_235127) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_06_082204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,6 +107,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_03_235127) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tag_group_tags", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tag_group_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_group_id"], name: "index_tag_group_tags_on_tag_group_id"
+    t.index ["tag_id"], name: "index_tag_group_tags_on_tag_id"
+    t.index ["user_id"], name: "index_tag_group_tags_on_user_id"
+  end
+
+  create_table "tag_groups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.integer "sort_order", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tag_groups_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "content", null: false
     t.datetime "created_at", null: false
@@ -141,6 +161,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_03_235127) do
   add_foreign_key "music_articles", "musics"
   add_foreign_key "music_creators", "creators"
   add_foreign_key "music_creators", "musics"
+  add_foreign_key "tag_group_tags", "tag_groups"
+  add_foreign_key "tag_group_tags", "tags"
+  add_foreign_key "tag_group_tags", "users"
+  add_foreign_key "tag_groups", "users"
 
   create_view "randomized_impressions", sql_definition: <<-SQL
       SELECT impressions.id,

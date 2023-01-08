@@ -1,0 +1,10 @@
+<div class="container js-impression" >
+  <p style="color: green"><%= notice %></p>
+
+  <%= link_to "一覧に戻る", my_page_tag_groups_path, class: 'btn btn-outline-secondary btn-sm mb-3' %>
+  <%= render @tag_group %>
+
+  <div id="unused_tags">
+    <%= render 'my_page/tag_groups/tags', unused_tags: @unused_tags, other_tags: @other_tags, tag_group: @tag_group %>
+  </div>
+</div>

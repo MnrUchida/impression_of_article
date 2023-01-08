@@ -1,1 +1,1 @@
-<%= turbo_stream.update "all_tags", partial: 'tags', locals: { container_id: 'all_tags', tags: @tags, impression: @impression } %>
+<%= turbo_stream.update "all_tags", partial: 'tags', locals: { container_id: 'all_tags', tags: @tags, impression: @impression, tag_id_by_group: @tag_id_by_group, tag_groups: @tag_groups } %>

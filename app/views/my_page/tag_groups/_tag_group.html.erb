@@ -1,0 +1,13 @@
+<div id="<%= dom_id tag_group %>" class="js-impression">
+  <div class="card m-2">
+    <div class="card-header"><%= tag_group.name %></div>
+    <div class="card-body">
+      <div id="used_tags" class="d-flex flex-wrap">
+        <%= render partial: "used_tags", locals: { tag_group: tag_group }  %>
+      </div>
+    </div>
+    <div class="card-footer">
+      表示順: <%= tag_group.sort_order %>
+    </div>
+  </div>
+</div>

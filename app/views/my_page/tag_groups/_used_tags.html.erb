@@ -1,0 +1,4 @@
+<% tag_group.tags.each do |tag| %>
+  <%= link_to "#{tag.content}×", destroy_tag_my_page_tag_group_path(tag_group, tag_id: tag.id),
+              data: { turbo_method: :delete }, class: "btn btn-sm btn-outline-secondary m-1" %>
+<% end %>

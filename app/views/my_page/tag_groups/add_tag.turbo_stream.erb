@@ -1,0 +1,2 @@
+<%= turbo_stream.update "used_tags", partial: 'used_tags', locals: { tag_group: @tag_group } %>
+<%= turbo_stream.update "unused_tags", partial: 'tags', locals: { unused_tags: @unused_tags, other_tags: @other_tags, tag_group: @tag_group } %>
