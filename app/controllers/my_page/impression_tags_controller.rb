@@ -52,7 +52,8 @@ module MyPage
     end
 
     private def set_tag_group
-      @tag_id_by_group = TagGroupTag.where(user: current_user, tag_id: @tags.select(:id)).group(:tag_group_id).pluck(:tag_group_id, Arel.sql("ARRAY_AGG(tag_id)")).to_h
+      tag_id_by_group = TagGroupTag.where(user: current_user, tag_id: @tags.select(:id)).group(:tag_group_id).pluck(:tag_group_id, Arel.sql("ARRAY_AGG(tag_id)"))
+      @tag_id_by_group = @tags.group_by { |tag| (tag_id_by_group.find { |_, tag_ids| tag_ids.include?(tag.id) } || [])[0] }
       @tag_groups = TagGroup.joins(:tag_group_tags).merge(TagGroupTag.where(tag_id: @tags.select(:id))).where(user: current_user).index_by(&:id)
     end
   end

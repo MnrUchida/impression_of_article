@@ -8,7 +8,7 @@ set :linked_files, %w(config/master.key config/credentials/production.key)
 set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/.well-known/acme-challenge)
 set :keep_releases, 5
 set :rbenv_ruby, '3.1.2'
-set :branch, 'inspection'
+set :branch, 'develop'
 set :puma_user, fetch(:user)
 
 # Default branch is :master

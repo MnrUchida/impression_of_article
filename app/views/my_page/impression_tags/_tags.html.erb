@@ -2,19 +2,17 @@
   <% tag_groups.each do |tag_group_id, tag_group| %>
     <%= tag_group.name %>
     <div class="d-flex flex-wrap">
-      <% (tag_id_by_group[tag_group_id] || []).each do |tag_id| %>
-        <% tag = tags.find { |v| v.id == tag_id } %>
+      <% (tag_id_by_group[tag_group_id] || []).each do |tag| %>
         <% if tag.present? %>
           <%= link_to tag.content, add_tag_my_page_impression_tags_path(tag_id: tag.id, impression_id: impression.id), data: { turbo_method: :post }, class: 'btn btn-sm btn-primary m-1' %>
         <% end %>
       <% end %>
     </div>
   <% end %>
-  <% others = tags.reject { |tag| @tag_id_by_group.values.flatten.include? tag.id } %>
-  <% if others.present? %>
+  <% if tag_id_by_group.key?(nil) %>
     未分類
     <div class="d-flex flex-wrap">
-      <% others.each do |tag| %>
+      <% tag_id_by_group[nil].each do |tag| %>
         <%= link_to tag.content, add_tag_my_page_impression_tags_path(tag_id: tag.id, impression_id: impression.id), data: { turbo_method: :post }, class: 'btn btn-sm btn-primary m-1' %>
       <% end %>
     </div>
