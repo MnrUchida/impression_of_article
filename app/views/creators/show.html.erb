@@ -2,7 +2,7 @@
   <%= link_to "戻る", creators_path(search: { keyword: @search_params[:keyword] }) %>
 
   <div class='mb-3'>
-    <%= form_with(url: creator_path(@creator), scope: :search, method: :get, html: {
+    <%= form_with(url: creator_path(@creator), scope: :article_search, method: :get, html: {
       data: {
         turbo_frame: "article-list",
         controller: "form",

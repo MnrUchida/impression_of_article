@@ -11,7 +11,7 @@ class CreatorsController < ApplicationController
   def show
     @creator = Creator.find(params[:id])
     @articles = @creator.articles.has_published_impressions
-    @articles = @articles.title_like(search_params[:keyword]) if search_params[:keyword].present?
+    @articles = @articles.title_like(article_search_params[:keyword]) if article_search_params[:keyword].present?
     @articles = @articles.preload(:published_tags).page(params[:page]).per(5)
   end
 
@@ -21,6 +21,10 @@ class CreatorsController < ApplicationController
 
   private def search_params
     params.fetch(:search, {}).permit(:keyword)
+  end
+
+  private def article_search_params
+    params.fetch(:article_search, {}).permit(:keyword)
   end
 
   private def impressions_by_creator
