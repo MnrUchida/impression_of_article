@@ -35,7 +35,7 @@ class Article < ApplicationRecord
   after_save :set_actors!
   after_save :set_musics!
 
-  before_save :set_image, if: :will_save_change_to_image_url?
+  # before_save :set_image, if: :will_save_change_to_image_url?
   # after_save :upload_s3, if: :saved_change_to_image_url?
 
   scope :keyword_like, ->(keyword) { title_like(keyword).or(creator_name_like(keyword)) }
@@ -108,9 +108,9 @@ class Article < ApplicationRecord
     end
   end
 
-  def s3_url
-    IMAGE_S3.object("article_image/#{self.id}").presigned_url(:get, expires_in: 604800)
-  end
+  # def s3_url
+  #   IMAGE_S3.object("article_image/#{self.id}").presigned_url(:get, expires_in: 604800)
+  # end
 
   class << self
     private def _find_by_url(url)
