@@ -22,6 +22,8 @@ class Music < ApplicationRecord
   validates :title, presence: true
   validates :url, presence: true
 
+  scope :title_like, ->(keyword) { where("title ILIKE :keyword", keyword: "%#{keyword}%") }
+
   def self.by_url(url)
     if nico?(url)
       self.where(url: nico_url(url))

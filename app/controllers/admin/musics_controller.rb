@@ -4,6 +4,7 @@ module Admin
 
     def index
       @musics = Music.all
+      @musics = @musics.title_like(search_params[:keyword]) if search_params[:keyword].present?
       @musics = @musics.page(params[:page])
     end
 
@@ -35,12 +36,16 @@ module Admin
     end
 
     private
-    def set_music
-      @music = Music.find(params[:id])
-    end
+      def set_music
+        @music = Music.find(params[:id])
+      end
 
-    def music_params
-      params.require(:music).permit(:note, :name, :url)
-    end
+      def music_params
+        params.require(:music).permit(:note, :title, :url)
+      end
+
+      def search_params
+        params.fetch(:search, {}).permit(:keyword)
+      end
   end
 end

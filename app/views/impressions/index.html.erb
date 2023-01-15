@@ -1,6 +1,6 @@
 <div class="container js-impression" >
   <%= render 'header' %>
-  <%= turbo_frame_tag "impressions" do %>
+  <%= turbo_frame_tag "impressions", data: { turbo_action: :advance } do %>
     <div class="border" >
       <%= paginate @impressions %>
     </div>
