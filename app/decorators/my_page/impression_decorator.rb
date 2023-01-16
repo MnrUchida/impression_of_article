@@ -12,8 +12,7 @@ module MyPage
       <<~EOS
         #{summary}
 
-        #おどれびゅ
-        #{article_title} #{article_url}?ref=twitter ##{article_nico_code} #ニコニコ動画
+        #{article_title} #{article_url}?ref=twitter ##{article_nico_code} #ニコニコ動画 #おどれびゅ
 
         #{detail}
       EOS
