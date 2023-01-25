@@ -75,6 +75,13 @@ class Article < ApplicationRecord
     end
   end
 
+  def reset_from_url
+    html = URI.open(self.url).read
+    parsed = Nokogiri.parse(html)
+    self.title = parsed.css('meta[property="og:title"]').attribute('content').value
+    self.image_url = parsed.css('meta[property="og:image"]').attribute('content').value
+  end
+
   def set_actors!
     @actor_ids ||= actor_articles.pluck(:creator_id)
     transaction do
