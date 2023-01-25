@@ -1,6 +1,6 @@
 module Admin
   class ArticlesController < ApplicationController
-    before_action :set_article, only: %i[show edit update destroy]
+    before_action :set_article, only: %i[show edit update destroy reset]
 
     def index
       @articles = Article.order(id: :desc).preload(actor_articles: :creator, music_articles: :music).page(params[:page])
@@ -13,10 +13,16 @@ module Admin
     def update
       @article.attributes = article_params
       if @article.save
+        Rails.cache.clear
         redirect_to admin_article_url(@article), notice: "Article was successfully updated."
       else
         render :edit, status: :unprocessable_entity
       end
+    end
+
+    def reset
+      @article.reset_from_url
+      render action: :edit
     end
 
     private

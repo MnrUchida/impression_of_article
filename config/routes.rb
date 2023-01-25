@@ -48,7 +48,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
-    resources :articles, only: %i[index show edit update]
+    resources :articles, only: %i[index show edit update] do
+      member do
+        get :reset
+      end
+    end
     resources :impressions, only: %i[index show destroy]
     resources :musics, except: :destroy
     resources :creators, except: :destroy
