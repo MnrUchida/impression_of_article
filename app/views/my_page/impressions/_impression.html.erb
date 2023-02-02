@@ -18,6 +18,9 @@
       <%= button_tag "コピー", data: { action: 'click->copy#copy', content: impression.combined }, class: 'btn btn-sm btn-outline-secondary' %>
       <% if impression.article_nico? %>
         <%= button_tag "Twitter用", data: { action: 'click->copy#copy', content: impression.for_twitter }, class: 'btn btn-sm btn-outline-secondary' %>
+        <% if current_user.mastodon_data_linkage.present? %>
+          <%= link_to "Mastodonに投稿", post_mastodon_my_page_impression_path(@impression), class: 'btn btn-sm btn-outline-secondary', data: { turbo_method: :post, turbo_confirm: '投稿します。よろしいですか？' } %>
+        <% end %>
       <% end %>
       <%= button_tag "Note用", data: { action: 'click->copy#copy', content: impression.for_note }, class: 'btn btn-sm btn-outline-secondary' %>
     </div>

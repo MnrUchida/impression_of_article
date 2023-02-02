@@ -18,6 +18,16 @@ module MyPage
       EOS
     end
 
+    def for_mastodon
+      <<~EOS
+        #{summary}
+
+        #{article_title} #{article_url} ##{article_nico_code} #ニコニコ動画 #おどれびゅ
+
+        #{detail}
+      EOS
+    end
+
     def for_note
       <<~EOS
         ### #{article_title}

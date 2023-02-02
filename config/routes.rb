@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       end
       member do
         patch :publish
+        post :post_mastodon
       end
     end
     resources :impression_tags, only: %i[index new create destroy] do
@@ -56,6 +57,11 @@ Rails.application.routes.draw do
     resources :impressions, only: %i[index show destroy]
     resources :musics, except: :destroy
     resources :creators, except: :destroy
+    resource :mastodon_data_linkage do
+      collection do
+        get :callback
+      end
+    end
 
     namespace :shared do
       resources :musics, except: %i[edit] do

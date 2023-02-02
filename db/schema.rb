@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_06_082204) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_02_062214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_06_082204) do
     t.integer "status"
     t.index ["article_id"], name: "index_impressions_on_article_id"
     t.index ["user_id"], name: "index_impressions_on_user_id"
+  end
+
+  create_table "mastodon_data_linkages", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "site", null: false
+    t.string "token", limit: 512, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_mastodon_data_linkages_on_user_id"
   end
 
   create_table "music_articles", force: :cascade do |t|
@@ -157,6 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_06_082204) do
   add_foreign_key "impression_tags", "tags"
   add_foreign_key "impressions", "articles"
   add_foreign_key "impressions", "users"
+  add_foreign_key "mastodon_data_linkages", "users"
   add_foreign_key "music_articles", "articles"
   add_foreign_key "music_articles", "musics"
   add_foreign_key "music_creators", "creators"
