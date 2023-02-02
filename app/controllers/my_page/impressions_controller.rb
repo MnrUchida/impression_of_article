@@ -1,7 +1,7 @@
 module MyPage
   class ImpressionsController < ApplicationController
     before_action :set_impressions, except: %i[new create]
-    before_action :set_impression, only: %i[show edit update update_temporary destroy publish]
+    before_action :set_impression, only: %i[show edit update update_temporary destroy publish post_mastodon]
 
     def index
       @impressions = @impressions.where(status: params[:status])
@@ -54,6 +54,19 @@ module MyPage
     def destroy
       @impression.destroy!
       redirect_to my_page_impressions_url, notice: "削除しました"
+    end
+
+    def post_mastodon
+      @decorated_impression = ImpressionDecorator.decorate(@impression)
+      Faraday.post("#{current_user.mastodon_data_linkage.site}/api/v1/statuses",
+                   {
+                     "status": @decorated_impression.for_mastodon,
+                     "visibility": "unlisted"
+                   },
+                   {
+                     'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                     'Authorization': "Bearer #{current_user.mastodon_data_linkage.token}"
+                   })
     end
 
     private

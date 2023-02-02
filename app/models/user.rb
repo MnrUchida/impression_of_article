@@ -32,6 +32,7 @@ class User < ApplicationRecord
   has_many :impressions, dependent: :destroy, inverse_of: :user
   has_many :tag_groups, dependent: :destroy, inverse_of: :user
   has_many :tag_group_tags, dependent: :destroy, inverse_of: :user
+  has_one :mastodon_data_linkage, dependent: :destroy, inverse_of: :user
 
   before_create :set_otp_secret
 
