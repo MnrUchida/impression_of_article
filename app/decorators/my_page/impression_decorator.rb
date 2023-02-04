@@ -19,13 +19,20 @@ module MyPage
     end
 
     def for_mastodon
-      <<~EOS
-        #{summary}
+      decorated_summary = <<~EOS
+        #{article_title} ##{article_nico_code} #ニコニコ動画 #おどれびゅ
 
-        #{article_title} #{article_url} ##{article_nico_code} #ニコニコ動画 #おどれびゅ
+        #{article_url}
+
+        #{summary}
 
         #{detail}
       EOS
+
+      {
+        "status": decorated_summary,
+        "visibility": "public"
+      }
     end
 
     def for_note

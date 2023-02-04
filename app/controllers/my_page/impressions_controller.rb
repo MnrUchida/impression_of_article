@@ -59,10 +59,7 @@ module MyPage
     def post_mastodon
       @decorated_impression = ImpressionDecorator.decorate(@impression)
       Faraday.post("#{current_user.mastodon_data_linkage.site}/api/v1/statuses",
-                   {
-                     "status": @decorated_impression.for_mastodon,
-                     "visibility": "unlisted"
-                   },
+                   @decorated_impression.for_mastodon,
                    {
                      'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
                      'Authorization': "Bearer #{current_user.mastodon_data_linkage.token}"
