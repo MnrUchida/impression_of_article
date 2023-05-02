@@ -19,7 +19,6 @@ Rails.application.routes.draw do
     resources :tags, only: %i[index update destroy]
   end
   resources :impressions, only: %i[index show]
-  resources :articles, only: %i[show]
 
   namespace :my_page do
     resources :impressions do

@@ -5,8 +5,6 @@ require 'open-uri'
 # Table name: articles
 #
 #  id                 :bigint           not null, primary key
-#  content_type       :string
-#  image_data         :binary
 #  image_url          :string
 #  note               :text
 #  title              :string           not null
@@ -34,9 +32,6 @@ class Article < ApplicationRecord
 
   after_save :set_actors!
   after_save :set_musics!
-
-  # before_save :set_image, if: :will_save_change_to_image_url?
-  # after_save :upload_s3, if: :saved_change_to_image_url?
 
   scope :keyword_like, ->(keyword) { title_like(keyword).or(creator_name_like(keyword)) }
   scope :title_like, ->(title) { where("title ILIKE :title", title: "%#{title}%") }
@@ -99,25 +94,6 @@ class Article < ApplicationRecord
       @music_ids.reject { |music_id| exist_ids.include? music_id }.each { |music_id| music_articles.create!(music_id: music_id) }
     end
   end
-
-  def set_image
-    URI.open(self.image_url) do |f|
-      self.image_data = f.read
-      self.content_type = f.content_type
-    end
-  end
-
-  def upload_s3
-    Tempfile.open(mode: File::RDWR, binmode: true) do |tempfile|
-      tempfile.write(URI.open(self.image_url).read)
-      tempfile.flush
-      IMAGE_S3.object("article_image/#{self.id}").upload_file(tempfile.path)
-    end
-  end
-
-  # def s3_url
-  #   IMAGE_S3.object("article_image/#{self.id}").presigned_url(:get, expires_in: 604800)
-  # end
 
   class << self
     private def _find_by_url(url)
