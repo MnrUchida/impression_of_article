@@ -20,7 +20,7 @@ module MyPage
 
     def for_mastodon
       decorated_summary = <<~EOS
-        #{article_title} ##{article_nico_code} #ニコニコ動画 #おどれびゅ
+        #{article_title} ##{article_nico_code} #ニコニコ動画 #おどれびゅ #踊ってみた
 
         #{article_url}
 
@@ -37,9 +37,10 @@ module MyPage
 
     def for_note
       <<~EOS
-        ### #{article_title}
+        #{article_title}
   
-        #{combined}
+        #{summary}
+        #{detail}
         #{article_url}
       EOS
     end
