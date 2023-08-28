@@ -72,4 +72,8 @@ Rails.application.routes.draw do
       resources :creators, except: %i[edit]
     end
   end
+
+  namespace :notices do
+    resources :zakkuri_festival, only: %i[index]
+  end
 end
