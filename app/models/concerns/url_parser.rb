@@ -20,6 +20,7 @@ module UrlParser
       yield(record, parsed) if record.new_record?
       record
     rescue => e
+      Rails.logger.info(e.message)
       self.find_or_initialize_by(url: url)
     end
   end
