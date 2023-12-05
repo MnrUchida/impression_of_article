@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     resources :impressions do
       collection do
         post :update_article
+        get :download
       end
       member do
         patch :publish

@@ -66,6 +66,14 @@ module MyPage
                    })
     end
 
+    def download
+      send_data(
+        Impression.to_csv,
+        type: 'text/csv',
+        filename: "download.csv"
+      )
+    end
+
     private
 
       def set_impression

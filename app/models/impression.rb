@@ -1,3 +1,4 @@
+require 'csv'
 # == Schema Information
 #
 # Table name: impressions
@@ -104,4 +105,12 @@ class Impression < ApplicationRecord
     find_by_sql(sql)
   end
 
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << %w[title url summary detail user_id]
+      self.preload(:article).all.each do |record|
+        csv << [record.article.title, record.article.url, record.summary, record.detail, record.user_id]
+      end
+    end
+  end
 end
